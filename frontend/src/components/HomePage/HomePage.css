@@ -1,0 +1,20 @@
+.bee-cards {
+  margin: 1em 2em;
+}
+
+.bee-pics {
+  width: 30vh;
+  height: 30vh;
+  border-radius: 1em;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

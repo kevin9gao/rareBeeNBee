@@ -25,12 +25,21 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-        {isLoaded && sessionLinks}
-      </li>
-    </ul>
+    <div className='navbar-wrapper'>
+      <div className='left-side'>
+        <img
+          id='logo'
+          src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9h5Zd_zjuA4wg9CNX9DpBbiJue7UEOtMAyOG2EWtaAl4nyJ44us9veKOtCfmjnwMWGHA&usqp=CAU'}
+          />
+        <h2 id='title'>RareBeeNBee</h2>
+      </div>
+      <ul>
+        <li>
+          <NavLink exact to="/">Home</NavLink>
+          {isLoaded && sessionLinks}
+        </li>
+      </ul>
+    </div>
   );
 }
 
