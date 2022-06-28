@@ -3,8 +3,9 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
-import './Navigation.css';
 import DemoUser from '../DemoUser';
+import Logo from '../../../src/favicon.png';
+import './Navigation.css';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
@@ -12,33 +13,31 @@ function Navigation({ isLoaded }){
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <ProfileButton user={sessionUser} />
+      <ProfileButton className='links' user={sessionUser} />
     );
   } else {
     sessionLinks = (
       <>
-        <LoginFormModal />
-        <DemoUser />
-        <NavLink to="/signup">Sign Up</NavLink>
+        <LoginFormModal className='links' />
+        <DemoUser className='links' id='demo-user' />
+        <NavLink className='links' id='sign-up' to="/signup">Sign Up</NavLink>
       </>
     );
   }
 
   return (
     <div className='navbar-wrapper'>
-      <div className='left-side'>
+      <div id='left-side'>
         <img
           id='logo'
-          src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9h5Zd_zjuA4wg9CNX9DpBbiJue7UEOtMAyOG2EWtaAl4nyJ44us9veKOtCfmjnwMWGHA&usqp=CAU'}
+          src={Logo}
           />
         <h2 id='title'>RareBeeNBee</h2>
       </div>
-      <ul>
-        <li>
-          <NavLink exact to="/">Home</NavLink>
-          {isLoaded && sessionLinks}
-        </li>
-      </ul>
+      <div id='right-side'>
+        <NavLink exact className='links' to="/">Home</NavLink>
+        {isLoaded && sessionLinks}
+      </div>
     </div>
   );
 }

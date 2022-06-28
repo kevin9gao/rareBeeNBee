@@ -5,6 +5,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
+import './index.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -14,21 +15,25 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
+    <div className="main-container">
+      <div id="navbar">
+        <Navigation isLoaded={isLoaded} />
+      </div>
+      <main>
+        {isLoaded && (
+          <Switch>
+            <Route path="/signup">
+              <SignupFormPage />
+            </Route>
+          </Switch>
+        )}
         <Switch>
-          <Route path="/signup">
-            <SignupFormPage />
+          <Route exact path='/'>
+            <HomePage />
           </Route>
         </Switch>
-      )}
-      <Switch>
-        <Route exact path='/'>
-          <HomePage />
-        </Route>
-      </Switch>
-    </>
+        </main>
+    </div>
   );
 }
 
