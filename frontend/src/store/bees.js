@@ -1,5 +1,7 @@
+import { csrfFetch } from "./csrf";
+
 const LOAD = 'bees/LOAD';
-const ADD_ONE = 'bees/ADD_ONE';
+const ADD_EDIT = 'bees/ADD_EDIT';
 
 const load = list => ({
   type: LOAD,
@@ -7,7 +9,7 @@ const load = list => ({
 });
 
 const addOneBee = bee => ({
-  type: ADD_ONE,
+  type: ADD_EDIT,
   bee
 });
 
@@ -20,12 +22,17 @@ export const getBees = () => async dispatch => {
   }
 }
 
-export const getSingleBee = beeId => async dispatch => {
-  const res = await fetch(`/api/bees/${beeId}`);
+export const createBee = (payload) => async dispatch => {
+  const res = await csrfFetch(`/api/bees`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
 
   if (res.ok) {
     const bee = await res.json();
     dispatch(addOneBee(bee));
+    return bee;
   }
 }
 
@@ -51,7 +58,7 @@ const beesReducer = (state = initialState, action) => {
         ...state,
         list: sortList(action.list)
       };
-    case ADD_ONE:
+    case ADD_EDIT:
       if (!state[action.bee.id]) {
         const newState = {
           ...state,

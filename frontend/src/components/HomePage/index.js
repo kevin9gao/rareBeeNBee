@@ -20,7 +20,7 @@ function HomePage() {
       <div className="main-wrapper">
         {bees.map(bee => {
           return (
-            <NavLink key={bee.name} to={`/api/bees/${bee.id}`}>
+            <NavLink key={bee.id} exact to={`/bees/${bee.id}`}>
               <article className="bee-cards">
                 <img src={bee.imageUrl} alt={bee.name} className='bee-pics' />
                 <div className="card-content">

@@ -11,12 +11,35 @@ router.get('/', asyncHandler(async (req, res) => {
 }))
 
 router.get('/:id', asyncHandler(async (req, res) => {
-  const bee = await db.Bee.findOne({
-    where: id === req.params.id
-  });
+  const bee = await db.Bee.findByPk(req.params.id);
   return res.json(bee);
 }))
 
+// TODO - validations for post
+router.post('/', asyncHandler(async (req, res) => {
+  const {
+    name,
+    address,
+    city,
+    state,
+    country,
+    price,
+    imageUrl,
+    userId
+  } = req.body;
 
+  const newBee = await db.Bee.create({
+    name,
+    address,
+    city,
+    state,
+    country,
+    price,
+    imageUrl,
+    userId
+  });
+
+  return res.redirect(`/api/bees/${newBee.id}`);
+}))
 
 module.exports = router;

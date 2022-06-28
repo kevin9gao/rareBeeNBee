@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
 import './index.css';
 import SingleBee from "./components/SingleBee";
+import NewBeeForm from "./components/NewBeeForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,7 +33,10 @@ function App() {
           <Route exact path='/'>
             <HomePage />
           </Route>
-          <Route path={`/api/bees/:beeId`}>
+          <Route exact path='/bees/new'>
+            <NewBeeForm />
+          </Route>
+          <Route exact path={`/bees/:beeId`}>
             <SingleBee />
           </Route>
         </Switch>

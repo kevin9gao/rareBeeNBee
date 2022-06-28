@@ -35,6 +35,7 @@ function Navigation({ isLoaded }){
       </div>
       <div id='right-side'>
         <NavLink exact className='links' to="/">Home</NavLink>
+        <NavLink exact className='links' to='/bees/new'>Add A New Bee</NavLink>
         {isLoaded && sessionLinks}
       </div>
     </div>
