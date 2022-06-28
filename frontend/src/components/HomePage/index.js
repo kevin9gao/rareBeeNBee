@@ -5,7 +5,7 @@ import { getBees } from '../../store/bees';
 import SingleBee from "../SingleBee";
 import './HomePage.css';
 
-function HomePage () {
+function HomePage() {
   const dispatch = useDispatch();
   const bees = useSelector(state => {
     return state.bees.list.map(beeId => state.bees[beeId]);
@@ -20,18 +20,19 @@ function HomePage () {
       <div className="main-wrapper">
         {bees.map(bee => {
           return (
-            <article className="bee-cards">
-              <img src={bee.imageUrl} alt={bee.name} className='bee-pics' />
-                {/* blocker */}
-                <NavLink to={`/api/bees/${bee.id}`}>
-                  <SingleBee bee={bee.id} />
-                </NavLink>
-              <div className="card-content">
-                <p className="card-location">
-                  {`${bee.city}, ${bee.state}, ${bee.country}`}
-                </p>
-              </div>
-            </article>
+            <NavLink key={bee.name} to={`/api/bees/${bee.id}`}>
+              <article className="bee-cards">
+                <img src={bee.imageUrl} alt={bee.name} className='bee-pics' />
+                <div className="card-content">
+                  <p className="card-location">
+                    {`${bee.city}, ${bee.state}, ${bee.country}`}
+                  </p>
+                </div>
+              </article>
+              <Route path={`/api/bees/:beeId`}>
+                <SingleBee bee={bee} />
+              </Route>
+            </NavLink>
           );
         })}
       </div>

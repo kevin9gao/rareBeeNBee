@@ -6,6 +6,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
 import './index.css';
+import SingleBee from "./components/SingleBee";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,8 +32,11 @@ function App() {
           <Route exact path='/'>
             <HomePage />
           </Route>
+          <Route path={`/api/bees/:beeId`}>
+            <SingleBee />
+          </Route>
         </Switch>
-        </main>
+      </main>
     </div>
   );
 }

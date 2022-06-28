@@ -10,4 +10,11 @@ router.get('/', asyncHandler(async (req, res) => {
   return res.json(bees);
 }))
 
+router.get('/:id', asyncHandler(async (req, res) => {
+  const bee = await db.Bee.findOne({
+    where: id === req.params.id
+  });
+  return res.json(bee);
+}))
+
 module.exports = router;
