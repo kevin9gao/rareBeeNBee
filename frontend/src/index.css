@@ -9,10 +9,6 @@ button:hover,
   cursor: pointer;
 }
 
-button:hover {
-  box-shadow: 2px 4px 5px rgba(228, 232, 238, 0.842);
-}
-
 * {
   box-sizing: border-box;
 }

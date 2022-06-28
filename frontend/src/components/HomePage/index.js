@@ -19,7 +19,9 @@ function HomePage () {
         {bees.map(bee => {
           return (
             <article className="bee-cards">
-              <img src={bee.imageUrl} alt={bee.name} className='bee-pics' />
+              <a>
+                <img src={bee.imageUrl} alt={bee.name} className='bee-pics' />
+              </a>
               <div className="card-content">
                 <p className="card-location">
                   {`${bee.city}, ${bee.state}, ${bee.country}`}

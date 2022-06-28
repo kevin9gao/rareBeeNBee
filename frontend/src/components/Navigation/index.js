@@ -13,7 +13,7 @@ function Navigation({ isLoaded }){
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <ProfileButton className='links' user={sessionUser} />
+      <ProfileButton id='profile-button' user={sessionUser} />
     );
   } else {
     sessionLinks = (
@@ -28,11 +28,10 @@ function Navigation({ isLoaded }){
   return (
     <div className='navbar-wrapper'>
       <div id='left-side'>
-        <img
-          id='logo'
-          src={Logo}
-          />
-        <h2 id='title'>RareBeeNBee</h2>
+        <a href='/' id='logo-wrapper'>
+          <img id='logo' alt='logo' src={Logo} />
+          <h2 id='title'>RareBeeNBee</h2>
+        </a>
       </div>
       <div id='right-side'>
         <NavLink exact className='links' to="/">Home</NavLink>
