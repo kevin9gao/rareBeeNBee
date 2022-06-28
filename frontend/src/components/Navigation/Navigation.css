@@ -72,13 +72,21 @@ button {
 
 #log-out:hover {
   transition: none;
+  box-shadow: none;
 }
 
-.profile-dropdown > p {
+.profile-dropdown p {
   width: 100%;
   text-align: center;
+  height: 5vh;
 }
 
-.profile-dropdown > p:hover {
+.profile-dropdown p:hover {
   background-color: rgba(228, 232, 238, 0.842);
 }
+
+/* .profile-dropdown div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
