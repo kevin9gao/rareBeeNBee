@@ -1,0 +1,10 @@
+.single-bee-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bee-pic {
+  width: 60vh;
+}

@@ -29,9 +29,6 @@ function HomePage() {
                   </p>
                 </div>
               </article>
-              <Route path={`/api/bees/:beeId`}>
-                <SingleBee bee={bee} />
-              </Route>
             </NavLink>
           );
         })}

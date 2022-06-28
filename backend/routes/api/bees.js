@@ -17,4 +17,6 @@ router.get('/:id', asyncHandler(async (req, res) => {
   return res.json(bee);
 }))
 
+
+
 module.exports = router;
