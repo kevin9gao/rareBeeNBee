@@ -70,14 +70,14 @@ router.post('/', asyncHandler(async (req, res) => {
     userId
   } = req.body;
 
-  // console.log('backend, before create: ', name,
-  //   address,
-  //   city,
-  //   state,
-  //   country,
-  //   price,
-  //   imageUrl,
-  //   userId)
+  console.log('backend, before create: ', name,
+    address,
+    city,
+    state,
+    country,
+    price,
+    imageUrl,
+    userId)
 
   const newBee = await db.Bee.create({
     name,
@@ -131,6 +131,16 @@ router.put('/:id', asyncHandler(async (req, res) => {
   // console.log('backend after update, updatedBee: ', updatedBee);
 
   res.json(updatedBee);
+}))
+
+router.delete('/:id', asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const bee = await db.Bee.findByPk(id);
+  if (!bee) throw new Error('Cannot find bee.')
+
+  await db.Bee.destroy({ where: { id } });
+  res.json({ id });
 }))
 
 module.exports = router;

@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD = 'bees/LOAD';
 const ADD_EDIT = 'bees/ADD_EDIT';
+const REMOVE = 'bees/REMOVE';
 
 const load = list => ({
   type: LOAD,
@@ -17,6 +18,11 @@ const update = bee => ({
   type: ADD_EDIT,
   bee
 });
+
+const remove = beeId => ({
+  type: REMOVE,
+  beeId
+})
 
 export const getBees = () => async dispatch => {
   const res = await fetch(`/api/bees`);
@@ -68,6 +74,17 @@ export const editBee = (payload, beeId) => async dispatch => {
     // console.log('editBee thunk after dispatch, bee: ', bee);
 
     return bee;
+  }
+}
+
+export const deleteBee = (beeId) => async dispatch => {
+  const res = await csrfFetch(`/api/bees/${beeId}`, {
+    method: 'DELETE'
+  });
+
+  if (res.ok) {
+    const bee = await res.json();
+    dispatch(remove(beeId));
   }
 }
 
