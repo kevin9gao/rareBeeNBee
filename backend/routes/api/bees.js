@@ -1,5 +1,6 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
+const { check, validationResult } = require('express-validator');
 
 const db = require('../../db/models');
 
@@ -15,6 +16,47 @@ router.get('/:id', asyncHandler(async (req, res) => {
   return res.json(bee);
 }))
 
+const postValidations = [
+  check('name')
+    .notEmpty()
+    .withMessage('Name cannot be empty.')
+    .isLength({ min: 3, max: 256 })
+    .withMessage('Name must be between 3 and 256 characters long.'),
+  check('address')
+    .notEmpty()
+    .withMessage('Address cannot be empty.')
+    .isLength({ min: 3, max: 256 })
+    .withMessage('Address must be between 3 and 256 characters long.'),
+  check('city')
+    .notEmpty()
+    .withMessage('City cannot be empty.')
+    .isLength({ min: 3, max: 100 })
+    .withMessage('City must be between 3 and 100 characters long.'),
+  check('state')
+    .notEmpty()
+    .withMessage('State cannot be empty.')
+    .isLength({ min: 2, max: 100 })
+    .withMessage('State must be between 2 and 100 characters long.'),
+  check('country')
+    .notEmpty()
+    .withMessage('Country cannot be empty.')
+    .isLength({ min: 3, max: 100 })
+    .withMessage('Country must be between 3 and 100 characters long.'),
+  check('price')
+    .notEmpty()
+    .withMessage('Price cannot be empty.')
+    .isNumeric()
+    .withMessage('Price must be a number.'),
+  check('imageUrl')
+    .notEmpty()
+    .withMessage('Image Url cannot be empty.')
+    .isLength({ min: 3, max: 500 })
+    .withMessage('Image Url must be between 3 and 500 characters long.')
+  // .custom(value => {
+  //   switch ()
+  // }),
+];
+
 // TODO - validations for post
 router.post('/', asyncHandler(async (req, res) => {
   const {
@@ -28,6 +70,15 @@ router.post('/', asyncHandler(async (req, res) => {
     userId
   } = req.body;
 
+  // console.log('backend, before create: ', name,
+  //   address,
+  //   city,
+  //   state,
+  //   country,
+  //   price,
+  //   imageUrl,
+  //   userId)
+
   const newBee = await db.Bee.create({
     name,
     address,
@@ -39,7 +90,7 @@ router.post('/', asyncHandler(async (req, res) => {
     userId
   });
 
-  return newBee;
+  res.json(newBee);
 }))
 
 router.put('/:id', asyncHandler(async (req, res) => {
@@ -54,6 +105,8 @@ router.put('/:id', asyncHandler(async (req, res) => {
     userId
   } = req.body;
 
+  const { beeId } = req.params;
+
   const updatedBee = await db.Bee.update({
     name,
     address,
@@ -65,7 +118,9 @@ router.put('/:id', asyncHandler(async (req, res) => {
     userId
   });
 
-  return res.redirect(`/api/bees/${updatedBee.id}`);
+  const bee = await db.Bee.findByPk(beeId);
+
+  res.json(bee);
 }))
 
 module.exports = router;

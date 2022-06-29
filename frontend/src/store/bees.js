@@ -28,15 +28,22 @@ export const getBees = () => async dispatch => {
 }
 
 export const createBee = (payload) => async dispatch => {
+  // console.log('got to createBee thunk, before fetch')
+
   const res = await csrfFetch(`/api/bees`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   });
 
+  // console.log('got to createBee thunk, after fetch(res)', res)
+
   if (res.ok) {
+    // console.log('createBee thunk, if res.ok running')
     const bee = await res.json();
-    dispatch(add(bee));
+    // console.log('before dispatch(add(bee)): ', bee);
+    await dispatch(add(bee));
+    // console.log('after dispatch(add(bee)): ', bee);
     return bee;
   }
 }
@@ -78,6 +85,7 @@ const beesReducer = (state = initialState, action) => {
         list: sortList(action.list)
       };
     case ADD_EDIT:
+      console.log('reducer ADD_EDIT, action.bee: ', action.bee);
       if (!state[action.bee.id]) {
         const newState = {
           ...state,

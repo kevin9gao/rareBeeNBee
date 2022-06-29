@@ -32,8 +32,13 @@ const NewBeeForm = () => {
       userId: user.id
     };
 
+    // console.log('handleSubmit(before): ', payload)
+
     let newBee = await dispatch(createBee(payload));
+    // console.log('handleSubmit(after): ', newBee)
+
     if (newBee) {
+      // console.log('handleSubmit(if newBee runs): ', newBee)
       history.push(`/bees/${newBee.id}`);
     }
   }
