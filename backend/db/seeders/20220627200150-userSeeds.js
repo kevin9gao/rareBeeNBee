@@ -7,32 +7,38 @@ module.exports = {
       {
         email: 'demo@user.io',
         username: 'Demo-lition',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        profilePicUrl: 'https://static.wikia.nocookie.net/bb6b9a39-8699-4ab7-9f8d-3109ac9cc0b0/scale-to-width/755'
       },
       {
         email: 'beecatcher1@bees.net',
         username: 'Beecatcher1',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        profilePicUrl: 'https://static.wikia.nocookie.net/bb6b9a39-8699-4ab7-9f8d-3109ac9cc0b0/scale-to-width/755'
       },
       {
         email: 'beecatcher2@bees.net',
         username: 'Beecatcher2',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        profilePicUrl: 'https://static.wikia.nocookie.net/bb6b9a39-8699-4ab7-9f8d-3109ac9cc0b0/scale-to-width/755'
       },
       {
         email: 'beecatcher3@bees.net',
         username: 'Beecatcher3',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        profilePicUrl: 'https://static.wikia.nocookie.net/bb6b9a39-8699-4ab7-9f8d-3109ac9cc0b0/scale-to-width/755'
       },
       {
         email: 'beecatcher4@bees.net',
         username: 'Beecatcher4',
-        hashedPassword: bcrypt.hashSync('password2')
+        hashedPassword: bcrypt.hashSync('password2'),
+        profilePicUrl: 'https://static.wikia.nocookie.net/bb6b9a39-8699-4ab7-9f8d-3109ac9cc0b0/scale-to-width/755'
       },
       {
         email: 'beecatcher5@bees.net',
         username: 'Beecatcher5',
-        hashedPassword: bcrypt.hashSync('password3')
+        hashedPassword: bcrypt.hashSync('password3'),
+        profilePicUrl: 'https://static.wikia.nocookie.net/bb6b9a39-8699-4ab7-9f8d-3109ac9cc0b0/scale-to-width/755'
       },
     ], {});
   },
