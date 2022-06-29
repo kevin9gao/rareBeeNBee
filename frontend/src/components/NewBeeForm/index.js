@@ -32,7 +32,7 @@ const NewBeeForm = () => {
       userId: user.id
     };
 
-    let newBee = dispatch(createBee(payload));
+    let newBee = await dispatch(createBee(payload));
     if (newBee) {
       history.push(`/bees/${newBee.id}`);
     }

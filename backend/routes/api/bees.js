@@ -39,7 +39,7 @@ router.post('/', asyncHandler(async (req, res) => {
     userId
   });
 
-  return res.redirect(`/api/bees/${newBee.id}`);
+  return newBee;
 }))
 
 router.put('/:id', asyncHandler(async (req, res) => {
