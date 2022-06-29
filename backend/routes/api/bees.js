@@ -42,4 +42,30 @@ router.post('/', asyncHandler(async (req, res) => {
   return res.redirect(`/api/bees/${newBee.id}`);
 }))
 
+router.put('/:id', asyncHandler(async (req, res) => {
+  const {
+    name,
+    address,
+    city,
+    state,
+    country,
+    price,
+    imageUrl,
+    userId
+  } = req.body;
+
+  const updatedBee = await db.Bee.update({
+    name,
+    address,
+    city,
+    state,
+    country,
+    price,
+    imageUrl,
+    userId
+  });
+
+  return res.redirect(`/api/bees/${updatedBee.id}`);
+}))
+
 module.exports = router;

@@ -8,6 +8,7 @@ import HomePage from "./components/HomePage";
 import './index.css';
 import SingleBee from "./components/SingleBee";
 import NewBeeForm from "./components/NewBeeForm";
+import { getBees } from "./store/bees";
 
 function App() {
   const dispatch = useDispatch();
@@ -15,6 +16,10 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getBees());
+  }, [dispatch])
 
   return (
     <div className="main-container">

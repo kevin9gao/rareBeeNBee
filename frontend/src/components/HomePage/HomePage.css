@@ -1,5 +1,16 @@
 .bee-cards {
   margin: 1em 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-navlinks {
+  width: 20%;
+}
+
+.card-content {
+  word-wrap: normal;
 }
 
 .bee-pics {

@@ -8,7 +8,12 @@ const load = list => ({
   list
 });
 
-const addOneBee = bee => ({
+const add = bee => ({
+  type: ADD_EDIT,
+  bee
+});
+
+const update = bee => ({
   type: ADD_EDIT,
   bee
 });
@@ -31,7 +36,21 @@ export const createBee = (payload) => async dispatch => {
 
   if (res.ok) {
     const bee = await res.json();
-    dispatch(addOneBee(bee));
+    dispatch(add(bee));
+    return bee;
+  }
+}
+
+export const editBee = (payload, beeId) => async dispatch => {
+  const res = await csrfFetch(`/api/bees/${beeId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  if (res.ok) {
+    const bee = await res.json();
+    dispatch(update(bee));
     return bee;
   }
 }
