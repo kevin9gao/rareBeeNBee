@@ -102,12 +102,20 @@ router.put('/:id', asyncHandler(async (req, res) => {
     country,
     price,
     imageUrl,
-    userId
-  } = req.body;
+    userId,
+  } = req.body.payload;
 
-  const { beeId } = req.params;
+  const { beeId } = req.body;
 
-  const updatedBee = await db.Bee.update({
+  // console.log('backend req.body: ', req.body);
+  // console.log('backend variables: ', name, address, city, state, country, price, imageUrl, userId);
+  // console.log('backend beeId: ', beeId);
+
+  const bee = await db.Bee.findByPk(beeId);
+
+  // console.log('backend after findByPk, bee: ', bee);
+
+  await db.Bee.update({
     name,
     address,
     city,
@@ -116,11 +124,13 @@ router.put('/:id', asyncHandler(async (req, res) => {
     price,
     imageUrl,
     userId
-  });
+  }, { where: { id: beeId } });
 
-  const bee = await db.Bee.findByPk(beeId);
+  const updatedBee = await db.Bee.findByPk(beeId);
 
-  res.json(bee);
+  // console.log('backend after update, updatedBee: ', updatedBee);
+
+  res.json(updatedBee);
 }))
 
 module.exports = router;

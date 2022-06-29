@@ -10,7 +10,7 @@ const EditBeeFormModal = () => {
       <button onClick={() => setShowModal(true)}>Edit Bee</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <EditBeeForm />
+          <EditBeeForm setShowModal={() => setShowModal(false)} />
         </Modal>
       )}
     </>

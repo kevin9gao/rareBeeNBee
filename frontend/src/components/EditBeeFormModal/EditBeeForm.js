@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
 import { editBee, getBees } from "../../store/bees";
 
-const EditBeeForm = ({}) => {
+const EditBeeForm = ({ setShowModal }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -37,9 +37,17 @@ const EditBeeForm = ({}) => {
       userId: user.id
     }
 
+    // console.log('handleSubmit before dispatch, payload: ', payload);
+    // console.log('handleSubmit before dispatch, beeId: ', beeId);
+
     let updatedBee = await dispatch(editBee(payload, beeId));
+
+    // console.log('handleSubmit after dispatch, updatedBee: ', updatedBee);
+
     if (updatedBee) {
+      // console.log('handleSubmit if updatedBee, updatedBee: ', updatedBee);
       history.push(`/bees/${beeId}`);
+      setShowModal();
     }
   }
 
