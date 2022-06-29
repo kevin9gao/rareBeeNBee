@@ -1,0 +1,34 @@
+.bee-cards {
+  margin: 1em 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-navlinks {
+  width: 20%;
+}
+
+.card-content {
+  word-wrap: normal;
+}
+
+.bee-pics {
+  width: 30vh;
+  height: 30vh;
+  border-radius: 1em;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 90%;
+  flex-wrap: wrap;
+}

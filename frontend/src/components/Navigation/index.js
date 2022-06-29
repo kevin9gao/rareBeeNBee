@@ -3,8 +3,9 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
-import './Navigation.css';
 import DemoUser from '../DemoUser';
+import Logo from '../../../src/favicon.png';
+import './Navigation.css';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
@@ -12,25 +13,32 @@ function Navigation({ isLoaded }){
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <ProfileButton user={sessionUser} />
+      <ProfileButton id='profile-button' user={sessionUser} />
     );
   } else {
     sessionLinks = (
       <>
-        <LoginFormModal />
-        <DemoUser />
-        <NavLink to="/signup">Sign Up</NavLink>
+        <LoginFormModal className='links' />
+        <DemoUser className='links' id='demo-user' />
+        <NavLink className='links' id='sign-up' to="/signup">Sign Up</NavLink>
       </>
     );
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
+    <div className='navbar-wrapper'>
+      <div id='left-side'>
+        <a href='/' id='logo-wrapper'>
+          <img id='logo' alt='logo' src={Logo} />
+          <h2 id='title'>RareBeeNBee</h2>
+        </a>
+      </div>
+      <div id='right-side'>
+        <NavLink exact className='links' to="/">Home</NavLink>
+        <NavLink exact className='links' to='/bees/new'>Add A New Bee</NavLink>
         {isLoaded && sessionLinks}
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 }
 

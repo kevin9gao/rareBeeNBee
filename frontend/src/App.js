@@ -4,6 +4,11 @@ import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import HomePage from "./components/HomePage";
+import './index.css';
+import SingleBee from "./components/SingleBee";
+import NewBeeForm from "./components/NewBeeForm";
+import { getBees } from "./store/bees";
 
 function App() {
   const dispatch = useDispatch();
@@ -12,17 +17,36 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getBees());
+  }, [dispatch])
+
   return (
-    <>
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
+    <div className="main-container">
+      <div id="navbar">
+        <Navigation isLoaded={isLoaded} />
+      </div>
+      <main>
+        {isLoaded && (
+          <Switch>
+            <Route path="/signup">
+              <SignupFormPage />
+            </Route>
+          </Switch>
+        )}
         <Switch>
-          <Route path="/signup">
-            <SignupFormPage />
+          <Route exact path='/'>
+            <HomePage />
+          </Route>
+          <Route exact path='/bees/new'>
+            <NewBeeForm />
+          </Route>
+          <Route exact path={`/bees/:beeId`}>
+            <SingleBee />
           </Route>
         </Switch>
-      )}
-    </>
+      </main>
+    </div>
   );
 }
 

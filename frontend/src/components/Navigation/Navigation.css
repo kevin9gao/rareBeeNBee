@@ -1,0 +1,110 @@
+* {
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+.navbar-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 6em;
+  border-bottom: 1px solid rgba(228, 228, 228, 0.651);;
+}
+
+#left-side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#right-side,
+#sign-up,
+#demo-user {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+a:hover {
+  transition: all ease-in .01s;
+  background-color: rgba(228, 232, 238, 0.842);
+  border-radius: 21px;
+}
+
+#right-side > button {
+  padding: 1em;
+  border-radius: 21px;
+  margin: 1em;
+}
+
+.links {
+  padding: 1em;
+  margin: 1em;
+}
+
+button:hover {
+  box-shadow: 2px 4px 5px rgba(228, 232, 238, 0.842);
+}
+
+button {
+  border: 1px solid rgba(228, 228, 228, 0.651);
+  border-radius: 21px;
+  background-color: white;
+  /* color: #551A8B; */
+  font-weight: 600;
+}
+
+p {
+  /* color: #551A8B; */
+}
+
+#logo {
+  width: 5vh;
+  margin: 1em;
+}
+
+#logo-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 .5em;
+}
+
+.profile-dropdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(228, 228, 228, 0.651);
+  box-shadow: 0 0 10px rgba(228, 232, 238, 0.842);
+  position: fixed;
+  width: 20vh;
+  background-color: white;
+}
+
+#log-out {
+  border: none;
+  margin: none;
+  padding: none;
+  background-color: transparent;
+}
+
+#log-out:hover {
+  transition: none;
+  box-shadow: none;
+}
+
+.profile-dropdown p {
+  width: 100%;
+  text-align: center;
+  height: 5vh;
+}
+
+.profile-dropdown p:hover {
+  background-color: rgba(228, 232, 238, 0.842);
+}
+
+/* .profile-dropdown div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */

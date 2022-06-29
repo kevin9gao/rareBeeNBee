@@ -29,6 +29,12 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [60, 60]
       }
+    },
+    profilePicUrl: {
+      type: DataTypes.STRING,
+      validate: {
+        len: [30, 256]
+      }
     }
   },
     {
@@ -49,6 +55,8 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function (models) {
     // associations can be defined here
+    User.hasMany(models.Bee, { foreignKey: 'userId' })
+    User.hasMany(models.Booking, { foreignKey: 'userId' })
   };
 
   User.prototype.toSafeObject = function () { // remember, this cannot be an arrow function
