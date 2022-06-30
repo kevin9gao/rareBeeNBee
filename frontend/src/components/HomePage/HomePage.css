@@ -12,6 +12,9 @@
 
 .card-content {
   word-wrap: normal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .bee-pics {
@@ -32,4 +35,8 @@ main {
   justify-content: center;
   width: 100%;
   flex-wrap: wrap;
+}
+
+.card-content h4 {
+  margin: 2em 0 0 0;
 }

@@ -1,7 +1,7 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { validationResult } = require('express-validator');
-const { postValidations } = require('../../validations/bees');
+const { postValidations, editPostValidations } = require('../../validations/bees');
 
 const db = require('../../db/models');
 
@@ -60,7 +60,8 @@ router.post('/', postValidations, asyncHandler(async (req, res) => {
   }
 }))
 
-router.put('/:id', postValidations, asyncHandler(async (req, res) => {
+// router.put('/:id', postValidations, asyncHandler(async (req, res) => {
+router.put('/:id', asyncHandler(async (req, res) => {
   const {
     name,
     address,
@@ -80,7 +81,7 @@ router.put('/:id', postValidations, asyncHandler(async (req, res) => {
 
   const bee = await db.Bee.findByPk(beeId);
 
-  const validatorErrors = validationResult(req);
+  // const validatorErrors = validationResult(req);
 
   // console.log('backend after findByPk, bee: ', bee);
 

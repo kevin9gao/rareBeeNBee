@@ -28,6 +28,7 @@ function HomePage() {
               <article className="bee-cards">
                 <img src={bee.imageUrl} alt={bee.name} className='bee-pics' />
                 <div className="card-content">
+                  <h4 className="bee-names">{bee.name}</h4>
                   <p className="card-location">
                     {`${bee.city}, ${bee.state}, ${bee.country}`}
                   </p>
