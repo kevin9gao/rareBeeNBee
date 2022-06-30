@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
-import { editBee, getBees } from "../../store/bees";
+import { editBee, getBees, getSingleBee } from "../../store/bees";
 
 const EditBeeForm = ({ setShowModal }) => {
   const dispatch = useDispatch();
@@ -10,6 +10,7 @@ const EditBeeForm = ({ setShowModal }) => {
   const { beeId } = useParams();
   const user = useSelector(state => state.session.user);
   const bee = useSelector(state => state.bees[beeId]);
+  const errors = useSelector(state => state.bees.errors);
 
   const [name, setName] = useState(bee.name);
   const [address, setAddress] = useState(bee.address);
@@ -18,6 +19,7 @@ const EditBeeForm = ({ setShowModal }) => {
   const [country, setCountry] = useState(bee.country);
   const [price, setPrice] = useState(bee.price);
   const [imageUrl, setImageUrl] = useState(bee.imageUrl);
+  const [hideErrors, setHideErrors] = useState(true);
 
   useEffect(() => {
     dispatch(getBees());
@@ -40,11 +42,18 @@ const EditBeeForm = ({ setShowModal }) => {
     // console.log('handleSubmit before dispatch, payload: ', payload);
     // console.log('handleSubmit before dispatch, beeId: ', beeId);
 
+    let originalBee = await dispatch(getSingleBee(beeId));
     let updatedBee = await dispatch(editBee(payload, beeId));
 
-    // console.log('handleSubmit after dispatch, updatedBee: ', updatedBee);
+    console.log('originalBee:', originalBee);
+    console.log('updatedBee:', updatedBee);
 
-    if (updatedBee) {
+    // console.log('handleSubmit after dispatch, updatedBee: ', updatedBee);
+    // IDEA: REMOVE PLACEHOLDERS AND MAKE IT SO THAT EMPTY FIELDS MEAN DON'T CHANGE
+    if (Array.isArray(updatedBee)) {
+      setHideErrors(false);
+    } else {
+      console.log('got to else in NewBeeForm')
       // console.log('handleSubmit if updatedBee, updatedBee: ', updatedBee);
       history.push(`/bees/${beeId}`);
       setShowModal();
@@ -53,6 +62,16 @@ const EditBeeForm = ({ setShowModal }) => {
 
   return (
     <div className='form-containers'>
+      <div
+        className="errors"
+        hidden={hideErrors}
+      >
+        <ul>
+          {errors && errors.map((error, idx) => (
+            <li key={idx}>{error}</li>
+          ))}
+        </ul>
+      </div>
       <form
         id="edit-bee-form"
         onSubmit={handleSubmit}

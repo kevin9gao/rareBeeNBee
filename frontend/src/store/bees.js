@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD = 'bees/LOAD';
 const ADD_EDIT = 'bees/ADD_EDIT';
+const REMOVE = 'bees/REMOVE';
 
 const load = list => ({
   type: LOAD,
@@ -18,12 +19,27 @@ const update = bee => ({
   bee
 });
 
+const remove = beeId => ({
+  type: REMOVE,
+  beeId
+})
+
 export const getBees = () => async dispatch => {
   const res = await fetch(`/api/bees`);
 
   if (res.ok) {
     const list = await res.json();
     dispatch(load(list));
+  }
+}
+
+export const getSingleBee = (beeId) => async dispatch => {
+  const res = await fetch(`/api/bees/${beeId}`);
+
+  if (res.ok) {
+    const list = await res.json();
+    dispatch(load(list));
+    return list;
   }
 }
 
@@ -71,6 +87,17 @@ export const editBee = (payload, beeId) => async dispatch => {
   }
 }
 
+export const deleteBee = (beeId) => async dispatch => {
+  const res = await csrfFetch(`/api/bees/${beeId}`, {
+    method: 'DELETE'
+  });
+
+  if (res.ok) {
+    const bee = await res.json();
+    dispatch(remove(beeId));
+  }
+}
+
 const initialState = {
   list: []
 };
@@ -82,19 +109,38 @@ const sortList = list => {
 }
 
 const beesReducer = (state = initialState, action) => {
+  // Check if state has errors key, if so remove it
+  if (state.errors) {
+    delete state.errors;
+  }
   switch (action.type) {
     case LOAD:
-      const allBees = {};
-      action.list.forEach(bee => {
-        allBees[bee.id] = bee;
-      });
-      return {
-        ...allBees,
-        ...state,
-        list: sortList(action.list)
-      };
+      console.log(!action.list.length);
+      if (!action.list.length) {
+        return {
+          [action.list.id]: action.list
+        }
+      } else {
+        const allBees = {};
+        action.list.forEach(bee => {
+          allBees[bee.id] = bee;
+        });
+        return {
+          ...allBees,
+          ...state,
+          list: sortList(action.list)
+        };
+      }
     case ADD_EDIT:
       console.log('reducer ADD_EDIT, action.bee: ', action.bee);
+      // Check if action.bee returned an errors array, if so return state with errors
+      if (Array.isArray(action.bee)) {
+        const newState = {
+          ...state,
+          errors: action.bee
+        }
+        return newState;
+      }
       if (!state[action.bee.id]) {
         const newState = {
           ...state,
