@@ -33,6 +33,16 @@ export const getBees = () => async dispatch => {
   }
 }
 
+export const getSingleBee = (beeId) => async dispatch => {
+  const res = await fetch(`/api/bees/${beeId}`);
+
+  if (res.ok) {
+    const list = await res.json();
+    dispatch(load(list));
+    return list;
+  }
+}
+
 export const createBee = (payload) => async dispatch => {
   // console.log('got to createBee thunk, before fetch')
 
@@ -99,19 +109,38 @@ const sortList = list => {
 }
 
 const beesReducer = (state = initialState, action) => {
+  // Check if state has errors key, if so remove it
+  if (state.errors) {
+    delete state.errors;
+  }
   switch (action.type) {
     case LOAD:
-      const allBees = {};
-      action.list.forEach(bee => {
-        allBees[bee.id] = bee;
-      });
-      return {
-        ...allBees,
-        ...state,
-        list: sortList(action.list)
-      };
+      console.log(!action.list.length);
+      if (!action.list.length) {
+        return {
+          [action.list.id]: action.list
+        }
+      } else {
+        const allBees = {};
+        action.list.forEach(bee => {
+          allBees[bee.id] = bee;
+        });
+        return {
+          ...allBees,
+          ...state,
+          list: sortList(action.list)
+        };
+      }
     case ADD_EDIT:
       console.log('reducer ADD_EDIT, action.bee: ', action.bee);
+      // Check if action.bee returned an errors array, if so return state with errors
+      if (Array.isArray(action.bee)) {
+        const newState = {
+          ...state,
+          errors: action.bee
+        }
+        return newState;
+      }
       if (!state[action.bee.id]) {
         const newState = {
           ...state,
