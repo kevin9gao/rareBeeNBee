@@ -7,13 +7,16 @@ import DemoUser from '../DemoUser';
 import Logo from '../../../src/favicon.png';
 import './Navigation.css';
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <ProfileButton id='profile-button' user={sessionUser} />
+      <>
+        <NavLink exact className='links' to='/bees/new'>Add A New Bee</NavLink>
+        <ProfileButton id='profile-button' user={sessionUser} />
+      </>
     );
   } else {
     sessionLinks = (
@@ -35,7 +38,6 @@ function Navigation({ isLoaded }){
       </div>
       <div id='right-side'>
         <NavLink exact className='links' to="/">Home</NavLink>
-        <NavLink exact className='links' to='/bees/new'>Add A New Bee</NavLink>
         {isLoaded && sessionLinks}
       </div>
     </div>
