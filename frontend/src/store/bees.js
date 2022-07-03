@@ -65,7 +65,7 @@ export const createBee = (payload) => async dispatch => {
 }
 
 export const editBee = (payload, beeId) => async dispatch => {
-  // console.log('got to editBee thunk before fetch, payload: ', payload);
+  console.log('got to editBee thunk before fetch, payload: ', payload);
 
   const res = await csrfFetch(`/api/bees/${beeId}`, {
     method: 'PUT',
@@ -73,15 +73,15 @@ export const editBee = (payload, beeId) => async dispatch => {
     body: JSON.stringify({ payload, beeId })
   });
 
-  // console.log('editBee thunk after fetch, res: ', res);
+  console.log('editBee thunk after fetch, res: ', res);
 
   if (res.ok) {
     const bee = await res.json();
 
-    // console.log('editBee thunk if res.ok, bee: ', bee);
+    console.log('editBee thunk if res.ok, bee: ', bee);
 
     dispatch(update(bee));
-    // console.log('editBee thunk after dispatch, bee: ', bee);
+    console.log('editBee thunk after dispatch, bee: ', bee);
 
     return bee;
   }
@@ -93,7 +93,7 @@ export const deleteBee = (beeId) => async dispatch => {
   });
 
   if (res.ok) {
-    const bee = await res.json();
+    // const bee = await res.json();
     dispatch(remove(beeId));
   }
 }
@@ -115,12 +115,15 @@ const beesReducer = (state = initialState, action) => {
   }
   switch (action.type) {
     case LOAD:
-      console.log(!action.list.length);
+      // console.log(!action.list.length);
+      // Loading a single bee
       if (!action.list.length) {
         return {
           [action.list.id]: action.list
         }
+      // Loading multiple bees
       } else {
+        // console.log('got to reducer');
         const allBees = {};
         action.list.forEach(bee => {
           allBees[bee.id] = bee;
@@ -141,16 +144,15 @@ const beesReducer = (state = initialState, action) => {
         }
         return newState;
       }
+      // If bee doesn't already exist in state, i.e. add new bee
       if (!state[action.bee.id]) {
         const newState = {
           ...state,
           [action.bee.id]: action.bee
         };
-        const beeList = newState.list.map(id => newState[id]);
-        beeList.push(action.bee);
-        newState.list = sortList(beeList);
         return newState;
       }
+      // If bee already exists in state, i.e. edit bee
       return {
         ...state,
         [action.bee.id]: {
@@ -158,6 +160,12 @@ const beesReducer = (state = initialState, action) => {
           ...action.bee
         }
       };
+    case REMOVE:
+      const newState = {
+        ...state
+      };
+      delete newState[action.beeId];
+      return newState;
     default:
       return state;
   }

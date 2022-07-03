@@ -26,6 +26,18 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATEONLY
       },
+      beeName: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      location: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      price: {
+        type: Sequelize.NUMERIC,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
