@@ -9,15 +9,19 @@ import './index.css';
 import SingleBee from "./components/SingleBee";
 import NewBeeForm from "./components/NewBeeForm";
 import { getBees } from "./store/bees";
+import BookingSuccess from "./components/Bookings/BookingSuccess";
+import UserBookings from "./components/Bookings/UserBookings";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
+    // console.log('App.js restoreUser dispatched');
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
   useEffect(() => {
+    // console.log('App.js getBees dispatched');
     dispatch(getBees());
   }, [dispatch])
 
@@ -41,8 +45,14 @@ function App() {
           <Route exact path='/bees/new'>
             <NewBeeForm />
           </Route>
-          <Route exact path={`/bees/:beeId`}>
+          <Route path={`/bees/:beeId`}>
             <SingleBee />
+          </Route>
+          <Route path={`/bookings/:bookingId`}>
+            <BookingSuccess />
+          </Route>
+          <Route path='/users/:userId/bookings'>
+            <UserBookings />
           </Route>
         </Switch>
       </main>

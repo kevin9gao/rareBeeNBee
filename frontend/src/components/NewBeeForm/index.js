@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { createBee, getBees } from "../../store/bees";
+import { createBee } from "../../store/bees";
 import './NewBeeForm.css';
 
 const NewBeeForm = () => {
@@ -17,13 +17,9 @@ const NewBeeForm = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [hideErrors, setHideErrors] = useState(true);
 
-  useEffect(() => {
-    dispatch(getBees());
-  }, [dispatch])
-
   const user = useSelector(state => state.session.user);
   const errors = useSelector(state => state.bees.errors);
-  console.log('errors useSelector in NewBeeForm: ', errors);
+  // console.log('errors useSelector in NewBeeForm: ', errors);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,13 +39,13 @@ const NewBeeForm = () => {
 
     let newBee = await dispatch(createBee(payload));
     // console.log('handleSubmit(after): ', newBee)
-    console.log('errors within handleSubmit: ', errors)
+    // console.log('errors within handleSubmit: ', errors)
 
     if (newBee.id) {
       // console.log('handleSubmit(if newBee runs): ', newBee)
       history.push(`/bees/${newBee.id}`);
     } else {
-      console.log('got to else in NewBeeForm')
+      // console.log('got to else in NewBeeForm')
       setHideErrors(false);
     }
   }

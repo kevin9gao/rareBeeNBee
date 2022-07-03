@@ -1,7 +1,7 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { validationResult } = require('express-validator');
-const { postValidations, editPostValidations } = require('../../validations/bees');
+const { postValidations } = require('../../validations/bees');
 
 const db = require('../../db/models');
 
@@ -19,6 +19,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 // TODO - validations for post
 router.post('/', postValidations, asyncHandler(async (req, res) => {
+  // console.log('got to backend post route');
   const {
     name,
     address,
@@ -62,6 +63,7 @@ router.post('/', postValidations, asyncHandler(async (req, res) => {
 
 // router.put('/:id', postValidations, asyncHandler(async (req, res) => {
 router.put('/:id', asyncHandler(async (req, res) => {
+  // console.log('got to backend put route');
   const {
     name,
     address,
@@ -81,31 +83,33 @@ router.put('/:id', asyncHandler(async (req, res) => {
 
   const bee = await db.Bee.findByPk(beeId);
 
-  // const validatorErrors = validationResult(req);
+  // const validatorErrors = validationResult(req.body);
+  // console.log('validatorErrors put route: ', validatorErrors);
 
   // console.log('backend after findByPk, bee: ', bee);
 
-  if (validatorErrors.isEmpty()) {
-    await db.Bee.update({
-      name,
-      address,
-      city,
-      state,
-      country,
-      price,
-      imageUrl,
-      userId
-    }, { where: { id: beeId } });
+  // if (validatorErrors.isEmpty()) {
+  await db.Bee.update({
+    name,
+    address,
+    city,
+    state,
+    country,
+    price,
+    imageUrl,
+    userId
+  }, { where: { id: beeId } });
 
-    const updatedBee = await db.Bee.findByPk(beeId);
+  const updatedBee = await db.Bee.findByPk(beeId);
 
-    // console.log('backend after update, updatedBee: ', updatedBee);
+  // console.log('backend after update, updatedBee: ', updatedBee);
 
-    res.json(updatedBee);
-  } else {
-    const errors = validatorErrors.array().map(error => error.msg);
-    return res.json(errors);
-  }
+  res.json(updatedBee);
+  // } else {
+  //   const errors = validatorErrors.array().map(error => error.msg);
+  //   console.log('put route errors (got to else): ', errors);
+  //   return res.json(errors);
+  // }
 }))
 
 router.delete('/:id', asyncHandler(async (req, res) => {
@@ -117,5 +121,6 @@ router.delete('/:id', asyncHandler(async (req, res) => {
   await db.Bee.destroy({ where: { id } });
   res.json({ id });
 }))
+
 
 module.exports = router;
