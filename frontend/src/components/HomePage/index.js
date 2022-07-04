@@ -1,12 +1,19 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { getBees } from '../../store/bees';
 import './HomePage.css';
 
 function HomePage() {
+  const dispatch = useDispatch();
+
   const bees = useSelector(state => {
     return state.bees.list.map(beeId => state.bees[beeId]);
   });
+
+  useEffect(() => {
+    dispatch(getBees());
+  }, [dispatch])
 
   if (bees) {
     return (

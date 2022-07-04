@@ -29,6 +29,7 @@ export const getBees = () => async dispatch => {
 
   if (res.ok) {
     const list = await res.json();
+    // console.log('getBees thunk, list: ', list);
     dispatch(load(list));
   }
 }
@@ -65,7 +66,7 @@ export const createBee = (payload) => async dispatch => {
 }
 
 export const editBee = (payload, beeId) => async dispatch => {
-  console.log('got to editBee thunk before fetch, payload: ', payload);
+  // console.log('got to editBee thunk before fetch, payload: ', payload);
 
   const res = await csrfFetch(`/api/bees/${beeId}`, {
     method: 'PUT',
@@ -73,15 +74,15 @@ export const editBee = (payload, beeId) => async dispatch => {
     body: JSON.stringify({ payload, beeId })
   });
 
-  console.log('editBee thunk after fetch, res: ', res);
+  // console.log('editBee thunk after fetch, res: ', res);
 
   if (res.ok) {
     const bee = await res.json();
 
-    console.log('editBee thunk if res.ok, bee: ', bee);
+    // console.log('editBee thunk if res.ok, bee: ', bee);
 
     dispatch(update(bee));
-    console.log('editBee thunk after dispatch, bee: ', bee);
+    // console.log('editBee thunk after dispatch, bee: ', bee);
 
     return bee;
   }
@@ -115,7 +116,7 @@ const beesReducer = (state = initialState, action) => {
   }
   switch (action.type) {
     case LOAD:
-      // console.log(!action.list.length);
+      // console.log(action.list.length);
       // Loading a single bee
       if (!action.list.length) {
         return {
@@ -135,7 +136,7 @@ const beesReducer = (state = initialState, action) => {
         };
       }
     case ADD_EDIT:
-      console.log('reducer ADD_EDIT, action.bee: ', action.bee);
+      // console.log('reducer ADD_EDIT, action.bee: ', action.bee);
       // Check if action.bee returned an errors array, if so return state with errors
       if (Array.isArray(action.bee)) {
         const newState = {

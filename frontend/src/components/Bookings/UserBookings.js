@@ -25,9 +25,9 @@ const UserBookings = () => {
     })()
   }, [userId, bookingsSelector, dispatch]);
 
-  console.log('userBookings.current: ', userBookings.current);
+  // console.log('userBookings.current: ', userBookings.current);
   const bookingsArray = userBookings.current;
-  console.log('bookingsArray', bookingsArray);
+  // console.log('bookingsArray', bookingsArray);
 
   // const handleDeleteBooking = (e) => {
   //   e.preventDefault();

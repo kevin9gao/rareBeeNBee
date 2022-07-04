@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom";
-import { getSingleBee } from "../../store/bees";
+import { getBees } from "../../store/bees";
 import { createBooking } from "../../store/bookings";
 import './BookingSidebar.css';
 
@@ -28,10 +28,10 @@ const BookingSidebar = () => {
 
   useEffect(() => {
     stayLength.current = ((new Date(endDate)) - (new Date(startDate))) / 86400000;
-    console.log('stayLength.current: ', stayLength.current);
+    // console.log('stayLength.current: ', stayLength.current);
     totalPrice.current = (price * stayLength.current) + hospitalityFee;
-    dispatch(getSingleBee(beeId));
-  }, [startDate, endDate, beeId, hospitalityFee, price, dispatch]);
+    dispatch(getBees());
+  }, [startDate, endDate, hospitalityFee, price, dispatch]);
 
   useEffect(() => {
     const errors = [];
@@ -48,8 +48,8 @@ const BookingSidebar = () => {
       setHidePriceCalcs(false)
     } else setHidePriceCalcs(true);
 
-    dispatch(getSingleBee(beeId));
-  }, [startDate, endDate, beeId, dispatch]);
+    dispatch(getBees());
+  }, [startDate, endDate, dispatch]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -115,7 +115,7 @@ const BookingSidebar = () => {
               type="date"
             ></input>
           </div>
-          <button id='reserve-button'>
+          <button id='reserve-button' className="big-buttons">
             Reserve
           </button>
         </form>
