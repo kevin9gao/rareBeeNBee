@@ -1,0 +1,66 @@
+#booking-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#price-div-container {
+  height: 5em;
+}
+
+.price-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
+}
+
+#day {
+  margin-left: 3px;
+}
+
+.price-breakdown-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.reservation-dates {
+  display: flex;
+  flex-direction: row;
+}
+
+.reservation-dates input {
+  width: 17vh;
+}
+
+#reserve-button {
+  background: linear-gradient(to right, #48024e 0%, #770386 50%, #5e0175b9 100%);
+  color: white;
+  width: 100%;
+  height: 40px;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+#reserve-button:hover {
+  transition: all ease-in 3s;
+  background: linear-gradient(to right, #48024e 0%, #720240 50%, #5e0175b9 100%);
+}
+
+#total {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid rgb(201, 201, 201);
+}
+
+#total p {
+  font-weight: 600;
+}
