@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
+import Logo from '../../favicon.png';
 import '../LoginFormModal/LoginSignup.css';
 
 function SignupForm() {
@@ -84,6 +85,11 @@ function SignupForm() {
           id='login-signup-submits'
         >Sign Up</button>
       </form>
+      <img
+        src={Logo}
+        className='logo'
+        id="logo-signup"
+      />
     </div>
   );
 }

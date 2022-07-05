@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
+import Logo from '../../favicon.png';
 import './LoginSignup.css';
 
 function LoginForm() {
@@ -58,6 +59,10 @@ function LoginForm() {
           id='login-signup-submits'
         >Log In</button>
       </form>
+      <img
+        src={Logo}
+        className='logo'
+      />
     </div>
   );
 }

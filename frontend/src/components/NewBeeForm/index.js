@@ -108,6 +108,11 @@ const NewBeeForm = () => {
     <div className="new-bee-main-container">
       <main>
         <div className='form-containers'>
+          <div className="login-or-signup">
+            <p>
+              Add a new bee!
+            </p>
+          </div>
           <div
             className="errors"
             hidden={hideErrors}
