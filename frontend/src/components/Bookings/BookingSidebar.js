@@ -28,7 +28,6 @@ const BookingSidebar = () => {
 
   useEffect(() => {
     stayLength.current = ((new Date(endDate)) - (new Date(startDate))) / 86400000;
-    // console.log('stayLength.current: ', stayLength.current);
     totalPrice.current = ((price * stayLength.current) + hospitalityFee).toFixed(2);
     dispatch(getBees());
   }, [startDate, endDate, hospitalityFee, price, dispatch]);
