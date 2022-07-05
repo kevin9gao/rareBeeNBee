@@ -20,8 +20,6 @@ const NewBeeForm = () => {
   const [sidebarImg, setSidebarImg] = useState('http://magarticles.magzter.com/articles/9340/217507/58ef23b4b6603/Rare-bees.jpg');
 
   const user = useSelector(state => state.session.user);
-  const errors = useSelector(state => state.bees.errors);
-  // console.log('errors useSelector in NewBeeForm: ', errors);
 
   useEffect(() => {
     if (imageUrl.length > 0) {
@@ -30,15 +28,53 @@ const NewBeeForm = () => {
             imageUrl.toLowerCase().endsWith('.png')) {
               setSidebarImg(imageUrl)
             }
-    };
+    } else if (imageUrl.length === 0) {
+      setSidebarImg('http://magarticles.magzter.com/articles/9340/217507/58ef23b4b6603/Rare-bees.jpg');
+    }
   }, [imageUrl])
+
+  useEffect(() => {
+    const errors = [];
+
+    if (name.length <= 1 || name.length > 256) {
+      errors.push('Name must be between 1 and 256 characters long.')
+    }
+    if (address.length <= 1 || address.length > 256) {
+      errors.push('Address must be between 1 and 256 characters long.')
+    }
+    if (city.length <= 1 || city.length > 100) {
+      errors.push('City must be between 1 and 100 characters long.')
+    }
+    if (state.length <= 1 || state.length > 100) {
+      errors.push('State must be between 1 and 100 characters long.')
+    }
+    if (country.length <= 1 || country.length > 100) {
+      errors.push('Country must be between 1 and 100 characters long.')
+    }
+    if (price.length < 1) {
+      errors.push('Please enter a price.')
+    } else if (Number(price) != price) {
+      errors.push('Price must be a number.')
+    } else if (Number(price) >= 100000000) {
+      errors.push('That bee is too expensive.')
+    }
+    if (imageUrl.length <= 1 || imageUrl.length > 500) {
+      errors.push('Image Url must be between 1 and 500 characters long.')
+    } else if (!(imageUrl.toLowerCase().endsWith('.jpg') ||
+      imageUrl.toLowerCase().endsWith('.jpeg') ||
+      imageUrl.toLowerCase().endsWith('.png'))) {
+      errors.push('Image must be a .jpg, .jpeg, or .png link.')
+    }
+
+    setValidationErrors(errors);
+  }, [name, address, city, state, country, price, imageUrl]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!user) {
       const error = ['You must be logged in to post a new bee.'];
-      setValidationErrors([...validationErrors, ...error]);
+      setValidationErrors([...error, ...validationErrors]);
       setHideErrors(false);
     }
 
@@ -77,7 +113,7 @@ const NewBeeForm = () => {
             hidden={hideErrors}
           >
             <ul>
-              {errors && errors.map((error, idx) => (
+              {validationErrors && validationErrors.map((error, idx) => (
                 <li key={idx}>{error}</li>
               ))}
             </ul>
