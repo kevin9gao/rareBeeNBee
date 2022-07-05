@@ -28,7 +28,11 @@ module.exports = (sequelize, DataTypes) => {
     price: {
       type: DataTypes.NUMERIC,
       allowNull: false
-    }
+    },
+    totalPrice: {
+      type: DataTypes.NUMERIC,
+      allowNull: false
+    },
   }, {});
   Booking.associate = function(models) {
     // associations can be defined here

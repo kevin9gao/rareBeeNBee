@@ -38,6 +38,10 @@ module.exports = {
         type: Sequelize.NUMERIC,
         allowNull: false
       },
+      totalPrice: {
+        type: Sequelize.NUMERIC,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

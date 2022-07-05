@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom";
+import { getBees } from "../../store/bees";
 import { createBooking } from "../../store/bookings";
+import './Booking.css';
 
 const BookingSidebar = () => {
   const dispatch = useDispatch();
@@ -9,21 +11,73 @@ const BookingSidebar = () => {
 
   const { beeId } = useParams();
   const user = useSelector(state => state.session.user);
-  const errors = useSelector(state => state.bookings.errors);
-  const beeName = useSelector(state => state.bees[beeId]['name'])
+  const beeName = useSelector(state => state.bees[beeId]['name']);
   const location = useSelector(state => {
     return `${state.bees[beeId]['address']}, ${state.bees[beeId]['city']}, ${state.bees[beeId]['state']}, ${state.bees[beeId]['country']}`
-  })
-  const price = useSelector(state => state.bees[beeId]['price'])
+  });
+  const price = useSelector(state => state.bees[beeId]['price']);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [validationErrors, setValidationErrors] = useState([]);
+  const [hidePriceCalcs, setHidePriceCalcs] = useState(false);
   const [hideErrors, setHideErrors] = useState(true);
 
-  // console.log('beeName: ', beeName);
-  // console.log('location: ', location);
+  let stayLength = useRef(0);
+  let totalPrice = useRef(0);
+  let hospitalityFee = (price <= 1000) ? 100 : price / 5;
+
+  useEffect(() => {
+    stayLength.current = ((new Date(endDate)) - (new Date(startDate))) / 86400000;
+    // console.log('stayLength.current: ', stayLength.current);
+    totalPrice.current = ((price * stayLength.current) + hospitalityFee).toFixed(2);
+    dispatch(getBees());
+  }, [startDate, endDate, hospitalityFee, price, dispatch]);
+
+  useEffect(() => {
+    const errors = [];
+
+    if (new Date(startDate) < (new Date())) {
+      errors.push('Start date must be in the future.');
+    } else if (new Date(endDate) < new Date(startDate)) {
+      errors.push('End date cannot be before Start date.');
+    }
+
+    setValidationErrors(errors);
+
+    if (!validationErrors.length) {
+      setHidePriceCalcs(false)
+    } else setHidePriceCalcs(true);
+
+    dispatch(getBees());
+  }, [startDate, endDate, dispatch]);
+
+  useEffect(() => {
+    const notLoggedInError = 'You must be logged in to reserve an appointment.';
+    const find = validationErrors.find(error => error === notLoggedInError);
+
+    if (user) {
+      if (find) {
+        const validationsFilter = validationErrors.filter(error => {
+          return error !== find;
+        });
+
+        setValidationErrors(validationsFilter)
+      }
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const notLoggedInError = 'You must be logged in to reserve an appointment.';
+    const find = validationErrors.find(error => error === notLoggedInError);
+
+    if (!user) {
+      if (!find) {
+        setValidationErrors([...validationErrors, notLoggedInError]);
+      }
+      return setHideErrors(false);
+    }
 
     const payload = {
       startDate,
@@ -31,13 +85,15 @@ const BookingSidebar = () => {
       beeName,
       location,
       price,
+      totalPrice: totalPrice.current,
       userId: user.id,
       beeId
     };
 
-    const newBooking = await dispatch(createBooking(payload));
+    // console.log('validationErrors: ', validationErrors)
 
-    if (newBooking.id) {
+    if (!validationErrors.length) {
+      const newBooking = await dispatch(createBooking(payload));
       history.push(`/bookings/${newBooking.id}`);
     } else {
       setHideErrors(false);
@@ -51,36 +107,66 @@ const BookingSidebar = () => {
         hidden={hideErrors}
       >
         <ul>
-          {errors && errors.map((error, idx) => (
+          {validationErrors && validationErrors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
       </div>
-      <div>
-        <h2>Book Your Stay Here!</h2>
+      <div id='booking-form-container'>
+        <div id='price-div-container'>
+          <div className='price-div'>
+            <h2>{`$${price}`}</h2>
+            <p id='day'>day</p>
+          </div>
+        </div>
         <form
           onSubmit={handleSubmit}
         >
-          <input
-            id='start-date'
-            placeholder="Start Date"
-            name="startDate"
-            onChange={e => setStartDate(e.target.value)}
-            value={startDate}
-            type="date"
-          ></input>
-          <input
-            id='end-date'
-            placeholder="End Date"
-            name="endDate"
-            onChange={e => setEndDate(e.target.value)}
-            value={endDate}
-            type="date"
-          ></input>
-          <button>
+          <div className="reservation-dates">
+            <input
+              id='start-date'
+              placeholder="Start Date"
+              name="startDate"
+              onChange={e => setStartDate(e.target.value)}
+              value={startDate}
+              type="date"
+            ></input>
+            <input
+              id='end-date'
+              placeholder="End Date"
+              name="endDate"
+              onChange={e => setEndDate(e.target.value)}
+              value={endDate}
+              type="date"
+            ></input>
+          </div>
+          <button id='reserve-button' className="big-buttons">
             Reserve
           </button>
         </form>
+        {!!stayLength.current && (
+          <div
+            className="price-totals"
+            hidden={hidePriceCalcs}
+          >
+            <div className="price-breakdown-div">
+              <p className="subtotals">
+                {`$${price} x ${stayLength.current} days`}
+              </p>
+              <p className="subtotal-by-day">
+                {`$${(price * stayLength.current).toFixed(2)}`}
+              </p>
+            </div>
+            <div className="price-breakdown-div">
+              <p>Hospitality fees</p>
+              <p>{`$${hospitalityFee}`}</p>
+            </div>
+            <div className="price-breakdown-div" id="total">
+              <p>Total</p>
+              <p>{`$${totalPrice.current}`}</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

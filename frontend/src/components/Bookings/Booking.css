@@ -1,0 +1,164 @@
+#booking-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#price-div-container {
+  height: 5em;
+}
+
+.price-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
+}
+
+#day {
+  margin-left: 3px;
+}
+
+.price-breakdown-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.reservation-dates {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.reservation-dates input {
+  width: 100%;
+  text-align: center;
+  padding: .5em;
+  margin: .3em .3em .3em 0;
+}
+
+#reserve-button,
+.gradient-buttons {
+  background: linear-gradient(to right, #48024e 0%, #770386 50%, #5e0175b9 100%);
+  color: white;
+  width: 100%;
+  height: 40px;
+  margin: 1em .3em 2em .3em;
+}
+
+#reserve-button:hover,
+.gradient-buttons:hover {
+  transition: all ease-in 3s;
+  background: linear-gradient(to right, #48024e 0%, #720240 50%, #5e0175b9 100%);
+}
+
+#total {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid rgb(201, 201, 201);
+}
+
+#total p {
+  font-weight: 600;
+}
+
+#my-reservations-container {
+  width: 50vh;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#my-reservations {
+  width: 10em;
+  height: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+}
+
+#booking-success-logo {
+  margin: 3em;
+}
+
+.user-bookings-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.individual-bookings {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: #48024e 1px solid;
+  border-radius: 20px;
+  padding: 1em;
+  margin: 1em;
+}
+
+.booking-groupings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.forms input:focus {
+  background-color: #7d4981b2;
+  color: white;
+}
+
+.booking-beename {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.booking-location {
+  font-style: italic;
+}
+
+.booking-total {
+  font-weight: 600;
+}
+
+.cancel-res {
+  background: linear-gradient(to right, #48024e 0%, #770386 50%, #5e0175b9 100%);
+  color: white;
+}
+
+.cancel-res:hover {
+  transition: all ease-in 3s;
+  background: linear-gradient(to right, #48024e 0%, #720240 50%, #5e0175b9 100%);
+}
+
+.cancel-res-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+}
+
+#cancel-res-nevermind {
+  background-color: rgb(68, 27, 216);
+  color: white;
+  padding: 1em;
+  margin: 1em;
+}
+
+#cancel-res-confirm {
+  background-color: rgb(218, 86, 10);
+  color: white;
+  padding: 1em;
+  margin: 1em;
+}

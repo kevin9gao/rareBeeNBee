@@ -81,14 +81,29 @@ p {
   background-color: white;
 }
 
-#log-out {
+.profile-dropdown p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+}
+
+#log-out,
+#navbar-bookings {
   border: none;
   margin: none;
   padding: none;
   background-color: transparent;
+  width: 100%;
+  height: 100%;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#log-out:hover {
+#log-out:hover,
+#navbar-bookings:hover {
   transition: none;
   box-shadow: none;
 }
@@ -102,9 +117,3 @@ p {
 .profile-dropdown p:hover {
   background-color: rgba(228, 232, 238, 0.842);
 }
-
-/* .profile-dropdown div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */

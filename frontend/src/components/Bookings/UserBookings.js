@@ -1,18 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import { getUserBookings } from '../../store/bookings';
 import * as sessionActions from '../../store/session';
 import CancelResModal from './CancelResModal';
+import './Booking.css';
 
 const UserBookings = () => {
   const dispatch = useDispatch();
   const { userId } = useParams();
-
   const [isLoaded, setIsLoaded] = useState(false);
-
   const bookingsSelector = useSelector(state => state.bookings);
-  let userBookings = useRef(null);
 
   useEffect(() => {
     // console.log('UserBookings.js restoreUser dispatched');
@@ -20,33 +18,43 @@ const UserBookings = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    (async () => {
-      userBookings.current = await dispatch(getUserBookings(userId));
-    })()
-  }, [userId, bookingsSelector, dispatch]);
+    dispatch(getUserBookings(userId));
+  }, [userId, dispatch]);
 
-  console.log('userBookings.current: ', userBookings.current);
-  const bookingsArray = userBookings.current;
-  console.log('bookingsArray', bookingsArray);
+  const bookingsArray = Object.values(bookingsSelector);
 
-  // const handleDeleteBooking = (e) => {
-  //   e.preventDefault();
+  // console.log('bookingsSelector: ', bookingsSelector);
+  // console.log('bookingsArray', bookingsArray);
 
-  //   dispatch(cancelBooking(booking.id));
-  // }
+  const stayLength = (startDate, endDate) => {
+    return ((new Date(endDate)) - (new Date(startDate))) / 86400000;
+  }
 
-  if (!(isLoaded && bookingsArray)) return null;
+  if (!isLoaded) return null;
 
   return (
-    <div className='main-container'>
+    <div className='user-bookings-container'>
       <h1>Bookings</h1>
-      {bookingsArray.map(booking => {
+      {bookingsArray && bookingsArray.map(booking => {
         return (
           <div className='individual-bookings' key={booking.id}>
-            <p>{booking.beeName}</p>
-            <p>{booking.location}</p>
-            <p>{booking.price}</p>
-            <CancelResModal booking={booking} />
+            <NavLink to={`/bees/${booking.beeId}`}>
+              <div className='booking-groupings'>
+                <p className='booking-beename'>
+                  {booking.beeName}
+                </p>
+                <p>
+                  {`$${booking.price} / ${stayLength(booking.startDate, booking.endDate)} days`}
+                </p>
+                <p className='booking-total'>
+                  {`Total: $${booking.totalPrice}`}
+                </p>
+              </div>
+            </NavLink>
+            <div className='booking-groupings'>
+              <p className='booking-location'>{booking.location}</p>
+              <CancelResModal booking={booking} />
+            </div>
           </div>
         );
       })}

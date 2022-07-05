@@ -14,6 +14,7 @@ router.post('/', bookingValidations, asyncHandler(async (req, res) => {
     beeName,
     location,
     price,
+    totalPrice,
     userId,
     beeId
   } = req.body;
@@ -27,6 +28,7 @@ router.post('/', bookingValidations, asyncHandler(async (req, res) => {
       beeName,
       location,
       price,
+      totalPrice,
       userId,
       beeId
     });

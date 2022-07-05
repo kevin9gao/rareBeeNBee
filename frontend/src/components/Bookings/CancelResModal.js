@@ -7,9 +7,12 @@ const CancelResModal = ({ booking }) => {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Cancel Reservation</button>
+      <button
+        onClick={() => setShowModal(true)}
+        className='cancel-res'
+      >Cancel Reservation</button>
       {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
+        <Modal className='modals' onClose={() => setShowModal(false)}>
           <CancelReservation
             booking={booking}
             setShowModal={() => setShowModal(false)}

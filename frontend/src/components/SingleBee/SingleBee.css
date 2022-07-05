@@ -17,7 +17,7 @@ main {
 }
 
 .lower {
-  width: 60%;
+  width: 60vw;
   display: flex;
   flex-direction: row;
 }
