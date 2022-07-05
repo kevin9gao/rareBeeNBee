@@ -28,6 +28,8 @@ router.post('/', postValidations, asyncHandler(async (req, res) => {
     country,
     price,
     imageUrl,
+    description,
+    details,
     userId
   } = req.body;
 
@@ -51,6 +53,8 @@ router.post('/', postValidations, asyncHandler(async (req, res) => {
       country,
       price,
       imageUrl,
+      description,
+      details,
       userId
     });
 
@@ -72,6 +76,8 @@ router.put('/:id', asyncHandler(async (req, res) => {
     country,
     price,
     imageUrl,
+    description,
+    details,
     userId,
   } = req.body.payload;
 
@@ -97,6 +103,8 @@ router.put('/:id', asyncHandler(async (req, res) => {
     country,
     price,
     imageUrl,
+    description,
+    details,
     userId
   }, { where: { id: beeId } });
 

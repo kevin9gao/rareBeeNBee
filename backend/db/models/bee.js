@@ -51,6 +51,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    description: {
+      type: DataTypes.STRING(256),
+    },
+    details: {
+      type: DataTypes.STRING(1000),
+    }
   }, {});
   Bee.associate = function(models) {
     // associations can be defined here

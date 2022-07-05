@@ -41,11 +41,11 @@ const SingleBee = () => {
       </div>
       <div className="lower">
           <div className="left-lower">
-            {/* <h2 id='lower-description'>{bee.description}</h2> */}
-            <h2 id='lower-description'>This is a temporary description placeholder</h2>
-            {/* <p id='details'>{bee.details}</p> */}
+            <h2 id='lower-description'>
+              {bee.description || `This is a bee description placeholder`}
+            </h2>
             <p id='details'>
-              These are temporary details about the bee. We're gonna need a good
+              {bee.details || `These are temporary details about the bee. We're gonna need a good
               amount of text inside this baby so we can really see what this thing's
               gonna look like. These are temporary details about the bee. We're gonna need a good
               amount of text inside this baby so we can really see what this thing's
@@ -53,7 +53,7 @@ const SingleBee = () => {
               amount of text inside this baby so we can really see what this thing's
               gonna look like. These are temporary details about the bee. We're gonna need a good
               amount of text inside this baby so we can really see what this thing's
-              gonna look like.
+              gonna look like.`}
             </p>
         </div>
         <div className="right-lower">

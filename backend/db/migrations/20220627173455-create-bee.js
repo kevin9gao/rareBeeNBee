@@ -41,6 +41,12 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Users' }
       },
+      description: {
+        type: Sequelize.STRING(256),
+      },
+      details: {
+        type: Sequelize.STRING(1000),
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

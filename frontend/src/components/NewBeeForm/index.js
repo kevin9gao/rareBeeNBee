@@ -15,6 +15,8 @@ const NewBeeForm = () => {
   const [country, setCountry] = useState('');
   const [price, setPrice] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [description, setDescription] = useState('');
+  const [details, setDetails] = useState('');
   const [validationErrors, setValidationErrors] = useState([]);
   const [hideErrors, setHideErrors] = useState(true);
   const [sidebarImg, setSidebarImg] = useState('http://magarticles.magzter.com/articles/9340/217507/58ef23b4b6603/Rare-bees.jpg');
@@ -24,10 +26,10 @@ const NewBeeForm = () => {
   useEffect(() => {
     if (imageUrl.length > 0) {
       if (imageUrl.toLowerCase().endsWith('.jpg') ||
-            imageUrl.toLowerCase().endsWith('.jpeg') ||
-            imageUrl.toLowerCase().endsWith('.png')) {
-              setSidebarImg(imageUrl)
-            }
+        imageUrl.toLowerCase().endsWith('.jpeg') ||
+        imageUrl.toLowerCase().endsWith('.png')) {
+        setSidebarImg(imageUrl)
+      }
     } else if (imageUrl.length === 0) {
       setSidebarImg('http://magarticles.magzter.com/articles/9340/217507/58ef23b4b6603/Rare-bees.jpg');
     }
@@ -61,13 +63,19 @@ const NewBeeForm = () => {
     if (imageUrl.length <= 1 || imageUrl.length > 500) {
       errors.push('Image Url must be between 1 and 500 characters long.')
     } else if (!(imageUrl.toLowerCase().endsWith('.jpg') ||
-      imageUrl.toLowerCase().endsWith('.jpeg') ||
-      imageUrl.toLowerCase().endsWith('.png'))) {
+    imageUrl.toLowerCase().endsWith('.jpeg') ||
+    imageUrl.toLowerCase().endsWith('.png'))) {
       errors.push('Image must be a .jpg, .jpeg, or .png link.')
+    }
+    if (description.length > 256) {
+      errors.push('Description cannot be more than 256 characters long.')
+    }
+    if (details.length > 1000) {
+      errors.push('Details cannot be more than 1000 characters long.')
     }
 
     setValidationErrors(errors);
-  }, [name, address, city, state, country, price, imageUrl]);
+  }, [name, address, city, state, country, price, imageUrl, description, details]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,6 +94,8 @@ const NewBeeForm = () => {
       country,
       price,
       imageUrl,
+      description,
+      details,
       userId: user.id
     };
 
@@ -175,6 +185,20 @@ const NewBeeForm = () => {
               onChange={e => setImageUrl(e.target.value)}
               value={imageUrl}
               placeholder='Link to a picture of the bee...'
+            />
+            <label>Description</label>
+            <input
+              type='text'
+              onChange={e => setDescription(e.target.value)}
+              value={description}
+              placeholder='A short description of the bee...'
+            />
+            <label>Details</label>
+            <input
+              type='text'
+              onChange={e => setDetails(e.target.value)}
+              value={details}
+              placeholder='Some details about the bee...'
             />
             <button id='new-bee-submit'>Submit</button>
           </form>

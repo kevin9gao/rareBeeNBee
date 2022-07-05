@@ -18,6 +18,8 @@ const EditBeeForm = ({ setShowModal }) => {
   const [country, setCountry] = useState(bee.country);
   const [price, setPrice] = useState(bee.price);
   const [imageUrl, setImageUrl] = useState(bee.imageUrl);
+  const [description, setDescription] = useState(bee.description);
+  const [details, setDetails] = useState(bee.details);
   const [validationErrors, setValidationErrors] = useState([]);
   const [hideErrors, setHideErrors] = useState(true);
 
@@ -55,9 +57,15 @@ const EditBeeForm = ({ setShowModal }) => {
       imageUrl.toLowerCase().endsWith('.png'))) {
       errors.push('Image must be a .jpg, .jpeg, or .png link.')
     }
+    if (description.length > 256) {
+      errors.push('Description cannot be more than 256 characters long.')
+    }
+    if (details.length > 1000) {
+      errors.push('Details cannot be more than 1000 characters long.')
+    }
 
     setValidationErrors(errors);
-  }, [name, address, city, state, country, price, imageUrl]);
+  }, [name, address, city, state, country, price, imageUrl, description, details]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,6 +78,8 @@ const EditBeeForm = ({ setShowModal }) => {
       country,
       price,
       imageUrl,
+      description,
+      details,
       userId: user.id
     }
 
@@ -159,6 +169,20 @@ const EditBeeForm = ({ setShowModal }) => {
           value={imageUrl}
           placeholder={imageUrl}
           required
+        />
+        <label>Description</label>
+        <input
+          type='text'
+          onChange={e => setDescription(e.target.value)}
+          value={description}
+          placeholder={description}
+        />
+        <label>Details</label>
+        <input
+          type='text'
+          onChange={e => setDetails(e.target.value)}
+          value={details}
+          placeholder={details}
         />
         <button id='edit-bee-submit'>Submit</button>
       </form>
