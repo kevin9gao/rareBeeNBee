@@ -39,9 +39,11 @@ function ProfileButton({ user }) {
         <div className="profile-dropdown">
           <p>{user.username}</p>
           <p>{user.email}</p>
-          <NavLink to={`/users/${user.id}/bookings`}>
-            Bookings
-          </NavLink>
+          <p>
+            <NavLink to={`/users/${user.id}/bookings`} id='navbar-bookings'>
+              Bookings
+            </NavLink>
+          </p>
           <p>
             <button onClick={logout} id='log-out'>Log Out</button>
           </p>

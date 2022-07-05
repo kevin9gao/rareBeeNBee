@@ -81,14 +81,16 @@ p {
   background-color: white;
 }
 
-#log-out {
+#log-out,
+#navbar-bookings {
   border: none;
   margin: none;
   padding: none;
   background-color: transparent;
 }
 
-#log-out:hover {
+#log-out:hover,
+#navbar-bookings:hover {
   transition: none;
   box-shadow: none;
 }
@@ -102,9 +104,3 @@ p {
 .profile-dropdown p:hover {
   background-color: rgba(228, 232, 238, 0.842);
 }
-
-/* .profile-dropdown div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */

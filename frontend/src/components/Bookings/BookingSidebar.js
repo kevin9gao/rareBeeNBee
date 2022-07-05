@@ -29,7 +29,7 @@ const BookingSidebar = () => {
   useEffect(() => {
     stayLength.current = ((new Date(endDate)) - (new Date(startDate))) / 86400000;
     // console.log('stayLength.current: ', stayLength.current);
-    totalPrice.current = (price * stayLength.current) + hospitalityFee;
+    totalPrice.current = ((price * stayLength.current) + hospitalityFee).toFixed(2);
     dispatch(getBees());
   }, [startDate, endDate, hospitalityFee, price, dispatch]);
 
@@ -51,8 +51,33 @@ const BookingSidebar = () => {
     dispatch(getBees());
   }, [startDate, endDate, dispatch]);
 
+  useEffect(() => {
+    const notLoggedInError = 'You must be logged in to reserve an appointment.';
+    const find = validationErrors.find(error => error === notLoggedInError);
+
+    if (user) {
+      if (find) {
+        const validationsFilter = validationErrors.filter(error => {
+          return error !== find;
+        });
+
+        setValidationErrors(validationsFilter)
+      }
+    }
+  }, [user]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const notLoggedInError = 'You must be logged in to reserve an appointment.';
+    const find = validationErrors.find(error => error === notLoggedInError);
+
+    if (!user) {
+      if (!find) {
+        setValidationErrors([...validationErrors, notLoggedInError]);
+      }
+      return setHideErrors(false);
+    }
 
     const payload = {
       startDate,
@@ -65,7 +90,7 @@ const BookingSidebar = () => {
       beeId
     };
 
-    console.log('validationErrors: ', validationErrors)
+    // console.log('validationErrors: ', validationErrors)
 
     if (!validationErrors.length) {
       const newBooking = await dispatch(createBooking(payload));
@@ -129,7 +154,7 @@ const BookingSidebar = () => {
                 {`$${price} x ${stayLength.current} days`}
               </p>
               <p className="subtotal-by-day">
-                {`$${price * stayLength.current}`}
+                {`$${(price * stayLength.current).toFixed(2)}`}
               </p>
             </div>
             <div className="price-breakdown-div">

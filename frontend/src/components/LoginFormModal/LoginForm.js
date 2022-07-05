@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
+import './LoginSignup.css';
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ function LoginForm() {
         <p>
           Log in
         </p>
-        </div>
+      </div>
       <h3 className="welcome">Welcome To RareBeeNBee</h3>
       <form onSubmit={handleSubmit} className='login-signup-forms'>
         <ul

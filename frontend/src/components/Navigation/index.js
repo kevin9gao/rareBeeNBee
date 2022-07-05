@@ -6,6 +6,7 @@ import LoginFormModal from '../LoginFormModal';
 import DemoUser from '../DemoUser';
 import Logo from '../../../src/favicon.png';
 import './Navigation.css';
+import SignupFormModal from '../SignupFormModal';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -21,9 +22,9 @@ function Navigation({ isLoaded }) {
   } else {
     sessionLinks = (
       <>
-        <LoginFormModal className='links' />
         <DemoUser className='links' id='demo-user' />
-        <NavLink className='links' id='sign-up' to="/signup">Sign Up</NavLink>
+        <LoginFormModal className='links' />
+        <SignupFormModal className='links' />
       </>
     );
   }
