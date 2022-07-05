@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom";
 import { getBees } from "../../store/bees";
 import { createBooking } from "../../store/bookings";
-import './BookingSidebar.css';
+import './Booking.css';
 
 const BookingSidebar = () => {
   const dispatch = useDispatch();

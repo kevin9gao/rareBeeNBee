@@ -23,3 +23,9 @@ button:hover,
   margin-bottom: 2em;
   border-radius: 21px;
 }
+
+#modal-content {
+  border-radius: 20px;
+  border: 1px solid purple;
+  filter: drop-shadow(0 0 5px purple);
+}

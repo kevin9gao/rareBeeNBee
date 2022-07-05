@@ -3,6 +3,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  width: 25vw;
+  border: #48024e 1px solid;
+  border-radius: 20px;
+  padding: 1em;
 }
 
 form {
@@ -22,9 +26,9 @@ form {
 }
 
 #sidebar-img {
-  height: 70vh;
+  height: 60vh;
   width: fit-content;
-  max-width: 80vw;
+  max-width: 60vw;
 }
 
 #new-bee-submit {

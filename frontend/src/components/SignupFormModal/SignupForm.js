@@ -89,6 +89,7 @@ function SignupForm() {
         src={Logo}
         className='logo'
         id="logo-signup"
+        alt="logo"
       />
     </div>
   );

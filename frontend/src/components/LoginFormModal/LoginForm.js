@@ -62,6 +62,7 @@ function LoginForm() {
       <img
         src={Logo}
         className='logo'
+        alt="logo"
       />
     </div>
   );
