@@ -101,7 +101,7 @@ form {
 .individual-bookings {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 60vw;
   border: #48024e 1px solid;
   border-radius: 20px;
   padding: 1em;

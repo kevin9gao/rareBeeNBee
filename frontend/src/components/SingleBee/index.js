@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
-import { deleteBee, getBees } from "../../store/bees";
+import { useParams } from "react-router-dom";
+import { getBees } from "../../store/bees";
 import BookingSidebar from "../Bookings/BookingSidebar";
 import EditBeeFormModal from "../EditBeeFormModal";
+import DeleteBeeModal from "./DeleteBeeModal";
 import './SingleBee.css';
 
 const SingleBee = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const { beeId } = useParams();
   const bee = useSelector(state => state.bees[beeId]);
   const user = useSelector(state => state.session.user);
@@ -16,11 +16,6 @@ const SingleBee = () => {
   useEffect(() => {
     dispatch(getBees());
   }, [dispatch]);
-
-  const handleDeleteBee = () => {
-    dispatch(deleteBee(beeId));
-    history.push('/');
-  }
 
   if (!bee) {
     return null;
@@ -33,10 +28,10 @@ const SingleBee = () => {
         <img className="bee-pic" src={bee.imageUrl} alt='bee' />
         <h3>{`${bee.city}, ${bee.state}, ${bee.country}`}</h3>
         {user && (bee.userId === user.id) && (
-          <EditBeeFormModal />
-        )}
-        {user && (bee.userId === user.id) && (
-          <button onClick={handleDeleteBee}>Delete Bee</button>
+          <div id="edit-delete-bee">
+            <EditBeeFormModal />
+            <DeleteBeeModal bee={bee} />
+          </div>
         )}
       </div>
       <div className="lower">

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { createBee } from "../../store/bees";
-import './NewBeeForm.css';
+import './BeeForm.css';
 
 const NewBeeForm = () => {
   const dispatch = useDispatch();

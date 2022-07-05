@@ -1,14 +1,16 @@
 import { useDispatch } from "react-redux";
-import { cancelBooking } from "../../store/bookings";
-import './Booking.css';
+import { deleteBee } from "../../store/bees";
+import { useHistory } from 'react-router-dom';
+import '../Bookings/Booking.css';
 
-const CancelReservation = ({ booking, setShowModal }) => {
+const DeleteBee = ({ bee, setShowModal }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   return (
     <div className="cancel-res-container">
       <div>
-        <h2>Cancel Reservation?</h2>
+        <h2>Remove Bee Spot?</h2>
       </div>
       <div>
         <button
@@ -20,15 +22,16 @@ const CancelReservation = ({ booking, setShowModal }) => {
         <button
           onClick={(e) => {
             e.preventDefault();
-            dispatch(cancelBooking(booking.id))
+            dispatch(deleteBee(bee.id));
+            history.push('/');
           }}
           id='cancel-res-confirm'
         >
-          Yes, cancel my reservation.
+          Yes, remove the bee.
         </button>
       </div>
     </div>
   );
 }
 
-export default CancelReservation;
+export default DeleteBee;

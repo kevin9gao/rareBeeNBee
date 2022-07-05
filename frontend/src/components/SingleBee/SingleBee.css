@@ -50,3 +50,25 @@ main {
   font-size: 16px;
   line-height: 24px;
 }
+
+#edit-delete-bee {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.delete-bee,
+.edit-bee {
+  background: linear-gradient(to right, #48024e 0%, #770386 50%, #5e0175b9 100%);
+  color: white;
+  width: 120px;
+  height: 40px;
+}
+
+.delete-bee:hover,
+.edit-bee:hover {
+  transition: all ease-in 3s;
+  background: linear-gradient(to right, #48024e 0%, #720240 50%, #5e0175b9 100%);
+}

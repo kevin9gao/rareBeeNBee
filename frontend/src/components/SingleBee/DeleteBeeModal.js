@@ -1,24 +1,27 @@
 import { useState } from "react";
 import { Modal } from "../../context/Modal";
-import EditBeeForm from "./EditBeeForm";
-import '../SingleBee/SingleBee.css';
+import DeleteBee from "./DeleteBee";
+import './SingleBee.css';
 
-const EditBeeFormModal = () => {
+const DeleteBeeModal = ({ bee }) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
       <button
         onClick={() => setShowModal(true)}
-        className='edit-bee'
-      >Edit Bee</button>
+        className='delete-bee'
+      >Delete Bee</button>
       {showModal && (
         <Modal className='modals' onClose={() => setShowModal(false)}>
-          <EditBeeForm setShowModal={() => setShowModal(false)} />
+          <DeleteBee
+            bee={bee}
+            setShowModal={() => setShowModal(false)}
+          />
         </Modal>
       )}
     </>
   );
-};
+}
 
-export default EditBeeFormModal;
+export default DeleteBeeModal;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
 import { editBee, getBees } from "../../store/bees";
+import '../NewBeeForm/BeeForm.css';
 
 const EditBeeForm = ({ setShowModal }) => {
   const dispatch = useDispatch();
@@ -22,10 +23,23 @@ const EditBeeForm = ({ setShowModal }) => {
   const [details, setDetails] = useState(bee.details);
   const [validationErrors, setValidationErrors] = useState([]);
   const [hideErrors, setHideErrors] = useState(true);
+  const [sidebarImg, setSidebarImg] = useState(imageUrl);
 
   useEffect(() => {
     dispatch(getBees());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (imageUrl.length > 0) {
+      if (imageUrl.toLowerCase().endsWith('.jpg') ||
+        imageUrl.toLowerCase().endsWith('.jpeg') ||
+        imageUrl.toLowerCase().endsWith('.png')) {
+        setSidebarImg(imageUrl)
+      }
+    } else if (imageUrl.length === 0) {
+      setSidebarImg(bee.imageUrl);
+    }
+  }, [imageUrl])
 
   useEffect(() => {
     const errors = [];
@@ -99,93 +113,124 @@ const EditBeeForm = ({ setShowModal }) => {
   }
 
   return (
-    <div className='form-containers'>
-      <div
-        className="errors"
-        hidden={hideErrors}
-      >
-        <ul>
-          {validationErrors && validationErrors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-      </div>
-      <form
-        id="edit-bee-form"
-        onSubmit={handleSubmit}
-      >
-        <label>Name</label>
-        <input
-          type='text'
-          onChange={e => setName(e.target.value)}
-          value={name}
-          placeholder={name}
-          required
-        />
-        <label>Street Name</label>
-        <input
-          type='text'
-          onChange={e => setAddress(e.target.value)}
-          value={address}
-          placeholder={address}
-          required
-        />
-        <label>City</label>
-        <input
-          type='text'
-          onChange={e => setCity(e.target.value)}
-          value={city}
-          placeholder={city}
-          required
-        />
-        <label>State</label>
-        <input
-          type='text'
-          onChange={e => setState(e.target.value)}
-          value={state}
-          placeholder={state}
-          required
-        />
-        <label>Country</label>
-        <input
-          type='text'
-          onChange={e => setCountry(e.target.value)}
-          value={country}
-          placeholder={country}
-          required
-        />
-        <label>Price</label>
-        <input
-          type='text'
-          onChange={e => setPrice(e.target.value)}
-          value={price}
-          placeholder={price}
-          required
-        />
-        <label>Image Url</label>
-        <input
-          type='text'
-          onChange={e => setImageUrl(e.target.value)}
-          value={imageUrl}
-          placeholder={imageUrl}
-          required
-        />
-        <label>Description</label>
-        <input
-          type='text'
-          onChange={e => setDescription(e.target.value)}
-          value={description}
-          placeholder={description}
-        />
-        <label>Details</label>
-        <input
-          type='text'
-          onChange={e => setDetails(e.target.value)}
-          value={details}
-          placeholder={details}
-        />
-        <button id='edit-bee-submit'>Submit</button>
-      </form>
+    <div className="edit-bee-main-container">
+      <main>
+        <div className='form-containers edit-form-container'>
+          <div
+            className="errors"
+            hidden={hideErrors}
+          >
+            <ul>
+              {validationErrors && validationErrors.map((error, idx) => (
+                <li key={idx}>{error}</li>
+              ))}
+            </ul>
+          </div>
+          <form
+            id="edit-bee-form"
+            onSubmit={handleSubmit}
+          >
+            <div className="edit-inputs">
+              <label>Name</label>
+              <input
+                type='text'
+                onChange={e => setName(e.target.value)}
+                value={name}
+                placeholder={name}
+                required
+              />
+            </div>
+            <div className="edit-inputs">
+              <label>Street Name</label>
+              <input
+                type='text'
+                onChange={e => setAddress(e.target.value)}
+                value={address}
+                placeholder={address}
+                required
+              />
+            </div>
+            <div className="edit-inputs">
+              <label>City</label>
+              <input
+                type='text'
+                onChange={e => setCity(e.target.value)}
+                value={city}
+                placeholder={city}
+                required
+              />
+            </div>
+            <div className="edit-inputs">
+              <label>State</label>
+              <input
+                type='text'
+                onChange={e => setState(e.target.value)}
+                value={state}
+                placeholder={state}
+                required
+              />
+            </div>
+            <div className="edit-inputs">
+              <label>Country</label>
+              <input
+                type='text'
+                onChange={e => setCountry(e.target.value)}
+                value={country}
+                placeholder={country}
+                required
+              />
+            </div>
+            <div className="edit-inputs">
+              <label>Price</label>
+              <input
+                type='text'
+                onChange={e => setPrice(e.target.value)}
+                value={price}
+                placeholder={price}
+                required
+              />
+            </div>
+            <div className="edit-inputs">
+              <label>Image Url</label>
+              <input
+                type='text'
+                onChange={e => setImageUrl(e.target.value)}
+                value={imageUrl}
+                placeholder={imageUrl}
+                required
+              />
+            </div>
+            <div className="edit-inputs">
+              <label>Description</label>
+              <input
+                type='text'
+                onChange={e => setDescription(e.target.value)}
+                value={description}
+                placeholder={description}
+              />
+            </div>
+            <div className="edit-inputs">
+              <label>Details</label>
+              <input
+                type='text'
+                onChange={e => setDetails(e.target.value)}
+                value={details}
+                placeholder={details}
+              />
+            </div>
+              <button id='edit-bee-submit'>Submit</button>
+          </form>
+        </div>
+      </main>
+      <aside className="sidebar">
+        <div className="new-bee-sidebar-img">
+          <img
+            src={sidebarImg}
+            id='edit-sidebar-img'
+            alt="sidebar-img"
+          />
+        </div>
+      </aside>
     </div>
   );
 };
