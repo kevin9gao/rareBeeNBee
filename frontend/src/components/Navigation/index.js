@@ -7,6 +7,7 @@ import DemoUser from '../DemoUser';
 import Logo from '../../../src/favicon.png';
 import './Navigation.css';
 import SignupFormModal from '../SignupFormModal';
+import AboutPageModal from './AboutPageModal';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -36,6 +37,7 @@ function Navigation({ isLoaded }) {
           <img id='logo' alt='logo' src={Logo} />
           <h2 id='title'>RareBeeNBee</h2>
         </a>
+        <AboutPageModal />
       </div>
       <div id='right-side'>
         <NavLink exact className='links' to="/">Home</NavLink>

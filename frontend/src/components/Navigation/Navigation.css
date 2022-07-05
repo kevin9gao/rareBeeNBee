@@ -117,3 +117,37 @@ p {
 .profile-dropdown p:hover {
   background-color: rgba(228, 232, 238, 0.842);
 }
+
+#about-button {
+  background: linear-gradient(to right, #48024e 0%, #770386 50%, #5e0175b9 100%);
+  color: white;
+  width: 80px;
+  height: 30px;
+  margin-left: 1em;
+}
+
+.anchor-images {
+  width: 30px;
+}
+
+#name-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#name {
+  font-size: 24px;
+}
+
+.about-container p {
+  margin: .3em 1em;
+}
+
+#about-links {
+  margin: .3em 0;
+}
+
+.about-container {
+  padding: 1em;
+}
