@@ -55,3 +55,7 @@ form input {
 .logo {
   height: 5vh;
 }
+
+.upload-file {
+  height: 2em;
+}

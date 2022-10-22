@@ -8,6 +8,8 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Booking } = require('../../db/models');
 const db = require('../../db/models');
 
+const { singlePublicFileUpload, singleMulterUpload } = require('../../awsS3');
+
 const router = express.Router();
 
 const validateSignup = [
@@ -33,10 +35,17 @@ const validateSignup = [
 // Sign up
 router.post(
   '/',
+  singleMulterUpload('image'),
   validateSignup,
   asyncHandler(async (req, res) => {
     const { email, password, username } = req.body;
-    const user = await User.signup({ email, username, password });
+    const profilePicUrl = await singlePublicFileUpload(req.file);
+    const user = await User.signup({
+      email,
+      username,
+      password,
+      profilePicUrl,
+    });
 
     await setTokenCookie(res, user);
 
@@ -45,6 +54,12 @@ router.post(
     });
   }),
 );
+
+// Get all users
+router.get('/', asyncHandler(async (req, res) => {
+  const users = await db.User.findAll();
+  return res.json(users);
+}))
 
 
 

@@ -8,6 +8,8 @@ function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
 
+  console.log('profilePicUrl profile button', user);
+
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -32,23 +34,28 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
-      {showMenu && (
-        <div className="profile-dropdown">
-          <p>{user.username}</p>
-          <p>{user.email}</p>
-          <p>
-            <NavLink to={`/users/${user.id}/bookings`} id='navbar-bookings'>
-              Bookings
-            </NavLink>
-          </p>
-          <p>
-            <button onClick={logout} id='log-out'>Log Out</button>
-          </p>
-        </div>
-      )}
+      <div className="dropdown-wrapper">
+        <button onClick={openMenu}>
+          <img
+            src={user.profilePicUrl}
+            className='avatars'
+            />
+        </button>
+        {showMenu && (
+          <div className="profile-dropdown">
+            <p>{user.username}</p>
+            <p>{user.email}</p>
+            <p>
+              <NavLink to={`/users/${user.id}/bookings`} id='navbar-bookings'>
+                Bookings
+              </NavLink>
+            </p>
+            <p>
+              <button onClick={logout} id='log-out'>Log Out</button>
+            </p>
+          </div>
+        )}
+      </div>
     </>
   );
 }
