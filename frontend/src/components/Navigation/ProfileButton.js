@@ -2,18 +2,26 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import * as sessionActions from '../../store/session';
+import Logo from '../../../src/favicon.png';
 import './Navigation.css';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const [profPic, setProfPic] = useState(user.profilePicUrl);
 
-  console.log('profilePicUrl profile button', user);
+  // console.log('profilePicUrl profile button', user);
 
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
   };
+
+  useEffect(() => {
+    if (!profPic) {
+      setProfPic(Logo);
+    };
+  }, []);
 
   useEffect(() => {
     if (!showMenu) return;
@@ -37,9 +45,10 @@ function ProfileButton({ user }) {
       <div className="dropdown-wrapper">
         <button onClick={openMenu}>
           <img
-            src={user.profilePicUrl}
+            src={profPic}
             className='avatars'
-            />
+            alt="avatar"
+          />
         </button>
         {showMenu && (
           <div className="profile-dropdown">

@@ -18,7 +18,7 @@ const removeUser = () => {
 };
 
 export const createUser = user => async dispatch => {
-  const { images, image, username, email, password } = user;
+  const { images, image, username, email, password, imageUrl } = user;
   const formData = new FormData();
   formData.append('username', username);
   formData.append('email', email);
@@ -31,14 +31,33 @@ export const createUser = user => async dispatch => {
     }
   }
 
-  // for single file
-  if (image) formData.append('image', image);
+  let res;
 
-  const res = await csrfFetch(`/api/users/`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'multipart/form-data' },
-    body: formData,
-  });
+  // for single file
+  if (image) {
+    formData.append('image', image);
+
+    res = await csrfFetch(`/api/users/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'multipart/form-data' },
+      body: formData,
+    });
+
+  } else if (imageUrl) {
+    formData.append('image', imageUrl);
+
+    res = await csrfFetch(`/api/users/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'multipart/form-data' },
+      body: formData,
+    });
+  } else {
+    res = await csrfFetch(`/api/users/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'multipart/form-data' },
+      body: formData,
+    });
+  }
 
   const data = await res.json();
   dispatch(setUser(data.user));

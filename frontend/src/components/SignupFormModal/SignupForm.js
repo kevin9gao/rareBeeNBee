@@ -11,7 +11,6 @@ function SignupForm() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [imageUrl, setImageUrl] = useState('');
   const [image, setImage] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState([]);
@@ -60,15 +59,19 @@ function SignupForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      setValidationErrors([]);
-      return dispatch(sessionActions.signup({ email, username, password }))
+
+    if (!validationErrors.length) {
+      return dispatch(sessionActions.createUser({
+        email,
+        username,
+        password,
+        image,
+      }))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setValidationErrors(data.errors);
       });
-    }
-    return setValidationErrors(['Confirm Password field must be the same as the Password field']);
+    } else setHideErrors(false);
   };
 
   const updateFile = e => {
@@ -124,14 +127,7 @@ function SignupForm() {
           placeholder='Confirm password'
           className="login-signup-inputs"
         />
-        <input
-          type='text'
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          placeholder='Profile Picture URL (You can leave this empty.)'
-          className="login-signup-inputs"
-        />
-        <label>Or, upload your own image!</label>
+        <label>Profile Picture</label>
         <input
           type='file'
           onChange={updateFile}
