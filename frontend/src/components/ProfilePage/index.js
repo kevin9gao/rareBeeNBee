@@ -4,6 +4,7 @@ import { Modal } from "../../context/Modal";
 import DeadLink from '../../dead link.jpg';
 import './ProfilePage.css';
 import UpdatePic from "./UpdatePic";
+import EmailIcon from '../../images/email-icon.jpg';
 
 const ProfilePage = () => {
   const user = useSelector(state => state.session.user);
@@ -29,7 +30,7 @@ const ProfilePage = () => {
             <button
               id="change-profile-pic-btn"
               onClick={() => setShowModal(true)}>
-                Update Profile Picture
+                Update photo
               </button>
             {showModal && (
               <Modal className='modals' onClose={() => {setShowModal(false)}}>
@@ -38,7 +39,19 @@ const ProfilePage = () => {
             )}
           </div>
         </div>
-        <div className="right"></div>
+        <div className="right">
+          <div className="header">
+            <h1>{`Hi, I'm ${user?.username}`}</h1>
+            <p>{`Joined in ${new Date(user?.createdAt).getFullYear()}`}</p>
+          </div>
+          <div className="profile-about">
+            <h3>About</h3>
+            <div className="email">
+              <img src={EmailIcon} />
+              <p>{`Email: ${user?.email}`}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
