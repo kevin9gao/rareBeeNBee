@@ -10,6 +10,7 @@ import NewBeeForm from "./components/NewBeeForm";
 import { getBees } from "./store/bees";
 import BookingSuccess from "./components/Bookings/BookingSuccess";
 import UserBookings from "./components/Bookings/UserBookings";
+import ProfilePage from "./components/ProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,9 @@ function App() {
           </Route>
           <Route path='/users/:userId/bookings'>
             <UserBookings />
+          </Route>
+          <Route path='/users/:userId'>
+            <ProfilePage />
           </Route>
         </Switch>
       </main>

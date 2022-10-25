@@ -21,7 +21,9 @@ function ProfileButton({ user }) {
     if (!profPic) {
       setProfPic(Logo);
     };
-  }, []);
+
+    if (user?.profilePicUrl) setProfPic(user.profilePicUrl);
+  }, [user?.profilePicUrl]);
 
   useEffect(() => {
     if (!showMenu) return;
@@ -52,10 +54,14 @@ function ProfileButton({ user }) {
         </button>
         {showMenu && (
           <div className="profile-dropdown">
-            <p>{user.username}</p>
+            <p>
+              <NavLink to={`/users/${user.id}`} className='navbar-links'>
+                {user.username}
+              </NavLink>
+            </p>
             <p>{user.email}</p>
             <p>
-              <NavLink to={`/users/${user.id}/bookings`} id='navbar-bookings'>
+              <NavLink to={`/users/${user.id}/bookings`} className='navbar-links'>
                 Bookings
               </NavLink>
             </p>

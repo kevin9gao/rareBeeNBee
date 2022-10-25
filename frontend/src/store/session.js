@@ -18,7 +18,7 @@ const removeUser = () => {
 };
 
 export const createUser = user => async dispatch => {
-  const { images, image, username, email, password, imageUrl } = user;
+  const { images, image, username, email, password } = user;
   const formData = new FormData();
   formData.append('username', username);
   formData.append('email', email);
@@ -42,26 +42,26 @@ export const createUser = user => async dispatch => {
       headers: { 'Content-Type': 'multipart/form-data' },
       body: formData,
     });
-
-  } else if (imageUrl) {
-    formData.append('image', imageUrl);
-
-    res = await csrfFetch(`/api/users/`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'multipart/form-data' },
-      body: formData,
-    });
-  } else {
-    res = await csrfFetch(`/api/users/`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'multipart/form-data' },
-      body: formData,
-    });
   }
 
   const data = await res.json();
   dispatch(setUser(data.user));
 };
+
+export const updateProfPic = (image, userId) => async dispatch => {
+  const formData = new FormData();
+  formData.append('image', image);
+
+  const res = await csrfFetch(`/api/users/${userId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'multipart/form-data' },
+    body: formData,
+  });
+
+  const data = await res.json();
+  dispatch(setUser(data.user));
+  return data;
+}
 
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;

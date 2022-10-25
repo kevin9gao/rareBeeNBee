@@ -97,7 +97,7 @@ p {
 }
 
 #log-out,
-#navbar-bookings {
+.navbar-links {
   border: none;
   margin: none;
   padding: none;

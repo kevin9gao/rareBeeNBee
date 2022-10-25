@@ -55,6 +55,25 @@ router.post(
   }),
 );
 
+// Update profile pic
+router.put(
+  '/:id',
+  singleMulterUpload('image'),
+  asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    const updatedProfilePicUrl = await singlePublicFileUpload(req.file);
+
+    await db.User.update({
+      profilePicUrl: updatedProfilePicUrl
+    }, { where: { id } });
+
+    const updatedUser = await db.User.findByPk(id);
+
+    res.json({ user: updatedUser });
+  })
+);
+
 // Get all users
 router.get('/', asyncHandler(async (req, res) => {
   const users = await db.User.findAll();
