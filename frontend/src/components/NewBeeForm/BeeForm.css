@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  width: 25vw;
+  width: 28vw;
   border: #48024e 1px solid;
   border-radius: 20px;
   padding: 1em;
@@ -97,4 +97,17 @@ form {
 
 #edit-bee-form input {
   width: 100%;
+}
+
+.img-details {
+  font-size: 12px;
+}
+
+#new-bee-form .upload-file {
+  height: 1.9em;
+}
+
+.img-label-wrapper {
+  display: flex;
+  align-items: center;
 }

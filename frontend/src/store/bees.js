@@ -44,23 +44,55 @@ export const getSingleBee = (beeId) => async dispatch => {
   }
 }
 
-export const createBee = (payload) => async dispatch => {
-  // console.log('got to createBee thunk, before fetch')
+// export const createBee = (payload) => async dispatch => {
+//   const res = await csrfFetch(`/api/bees`, {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify(payload)
+//   });
 
-  const res = await csrfFetch(`/api/bees`, {
+//   if (res.ok) {
+//     const bee = await res.json();
+//     await dispatch(add(bee));
+//     return bee;
+//   }
+// }
+
+export const createBee = payload => async dispatch => {
+  const {
+    name,
+    address,
+    city,
+    state,
+    country,
+    price,
+    image,
+    description,
+    details,
+    userId
+  } = payload;
+
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('address', address);
+  formData.append('city', city);
+  formData.append('state', state);
+  formData.append('country', country);
+  formData.append('price', price);
+  formData.append('description', description);
+  formData.append('details', details);
+  formData.append('userId', userId);
+  formData.append('image', image);
+
+  const res = await csrfFetch('/api/bees', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    headers: { 'Content-Type': 'multipart/form-data' },
+    body: formData,
   });
 
-  // console.log('got to createBee thunk, after fetch(res)', res)
-
   if (res.ok) {
-    // console.log('createBee thunk, if res.ok running')
-    const bee = await res.json();
-    // console.log('before dispatch(add(bee)): ', bee);
-    await dispatch(add(bee));
-    // console.log('after dispatch(add(bee)): ', bee);
+    const bee = await res.json()
+    dispatch(add(bee));
     return bee;
   }
 }

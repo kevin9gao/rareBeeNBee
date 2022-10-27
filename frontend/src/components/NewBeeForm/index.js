@@ -14,7 +14,8 @@ const NewBeeForm = () => {
   const [state, setState] = useState('');
   const [country, setCountry] = useState('');
   const [price, setPrice] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [coverImage, setCoverImage] = useState(null);
+  const [addImages, setAddImages] = useState(null);
   const [description, setDescription] = useState('');
   const [details, setDetails] = useState('');
   const [validationErrors, setValidationErrors] = useState([]);
@@ -22,18 +23,6 @@ const NewBeeForm = () => {
   const [sidebarImg, setSidebarImg] = useState('http://magarticles.magzter.com/articles/9340/217507/58ef23b4b6603/Rare-bees.jpg');
 
   const user = useSelector(state => state.session.user);
-
-  useEffect(() => {
-    if (imageUrl.length > 0) {
-      if (imageUrl.toLowerCase().endsWith('.jpg') ||
-        imageUrl.toLowerCase().endsWith('.jpeg') ||
-        imageUrl.toLowerCase().endsWith('.png')) {
-        setSidebarImg(imageUrl)
-      }
-    } else if (imageUrl.length === 0) {
-      setSidebarImg('http://magarticles.magzter.com/articles/9340/217507/58ef23b4b6603/Rare-bees.jpg');
-    }
-  }, [imageUrl])
 
   useEffect(() => {
     const errors = [];
@@ -60,13 +49,6 @@ const NewBeeForm = () => {
     } else if (Number(price) >= 100000000) {
       errors.push('That bee is too expensive.')
     }
-    if (imageUrl.length <= 1 || imageUrl.length > 500) {
-      errors.push('Image Url must be between 1 and 500 characters long.')
-    } else if (!(imageUrl.toLowerCase().endsWith('.jpg') ||
-    imageUrl.toLowerCase().endsWith('.jpeg') ||
-    imageUrl.toLowerCase().endsWith('.png'))) {
-      errors.push('Image must be a .jpg, .jpeg, or .png link.')
-    }
     if (description.length > 256) {
       errors.push('Description cannot be more than 256 characters long.')
     }
@@ -75,7 +57,14 @@ const NewBeeForm = () => {
     }
 
     setValidationErrors(errors);
-  }, [name, address, city, state, country, price, imageUrl, description, details]);
+  }, [name, address, city, state, country, price, description, details]);
+
+  useEffect(() => {
+    if (!coverImage) return;
+
+    const previewUrl = URL.createObjectURL(coverImage);
+    if (previewUrl) setSidebarImg(previewUrl);
+  }, [coverImage]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,32 +75,45 @@ const NewBeeForm = () => {
       setHideErrors(false);
     }
 
-    const payload = {
-      name,
-      address,
-      city,
-      state,
-      country,
-      price,
-      imageUrl,
-      description,
-      details,
-      userId: user.id
-    };
+    if (!validationErrors.length) {
+      const payload = {
+        name,
+        address,
+        city,
+        state,
+        country,
+        price,
+        image: coverImage,
+        description,
+        details,
+        userId: user.id
+      };
 
-    // console.log('handleSubmit(before): ', payload)
+      // console.log('handleSubmit(before): ', payload)
 
-    let newBee = await dispatch(createBee(payload));
-    // console.log('handleSubmit(after): ', newBee)
-    // console.log('errors within handleSubmit: ', errors)
+      let newBee = await dispatch(createBee(payload));
+      // console.log('handleSubmit(after): ', newBee)
+      // console.log('errors within handleSubmit: ', errors)
 
-    if (newBee.id) {
-      // console.log('handleSubmit(if newBee runs): ', newBee)
-      history.push(`/bees/${newBee.id}`);
-    } else {
-      // console.log('got to else in NewBeeForm')
-      setHideErrors(false);
-    }
+      if (newBee.id) {
+        // console.log('handleSubmit(if newBee runs): ', newBee)
+        history.push(`/bees/${newBee.id}`);
+      }
+    } else setHideErrors(false);
+  }
+
+  const updateCoverImg = e => {
+    const file = e.target.files[0];
+    // console.log('file', file);
+    if (file) setCoverImage(file);
+    // console.log('coverImage', coverImage);
+  }
+
+  const updateAdditionalImgs = e => {
+    const files = e.target.files;
+    // console.log('files', files);
+    if (files) setAddImages(files);
+    // console.log('addImages', addImages);
   }
 
   return (
@@ -135,6 +137,7 @@ const NewBeeForm = () => {
           </div>
           <form
             className="forms"
+            id="new-bee-form"
             onSubmit={handleSubmit}
           >
             <label>Name</label>
@@ -179,13 +182,6 @@ const NewBeeForm = () => {
               value={price}
               placeholder='Price for One Bee Catching Session...'
             />
-            <label>Image Url</label>
-            <input
-              type='text'
-              onChange={e => setImageUrl(e.target.value)}
-              value={imageUrl}
-              placeholder='Link to a picture of the bee...'
-            />
             <label>Description</label>
             <input
               type='text'
@@ -199,6 +195,35 @@ const NewBeeForm = () => {
               onChange={e => setDetails(e.target.value)}
               value={details}
               placeholder='Some details about the bee...'
+            />
+            <div className="img-label-wrapper" id="cover-img-label-wrapper">
+              <div>
+                <label>Cover Image:&nbsp;</label>
+              </div>
+              <label className="img-details">
+                The first image of your bee you would like users to see.
+              </label>
+            </div>
+            <input
+              type='file'
+              accept="image/*"
+              onChange={updateCoverImg}
+              className='upload-file'
+            />
+            <div className="img-label-wrapper">
+              <div>
+                <label>Additional Images:&nbsp;</label>
+              </div>
+              <label className="img-details">
+                Additional images of your bee.
+              </label>
+            </div>
+            <input
+              type='file'
+              accept="image/*"
+              multiple
+              onChange={updateAdditionalImgs}
+              className='upload-file'
             />
             <button id='new-bee-submit'>Submit</button>
           </form>

@@ -2,6 +2,12 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { validationResult } = require('express-validator');
 const { postValidations } = require('../../validations/bees');
+const {
+  singleMulterUpload,
+  singlePublicFileUpload,
+  multipleMulterUpload,
+  multiplePublicFileUpload
+} = require('../../awsS3');
 
 const db = require('../../db/models');
 
@@ -18,7 +24,11 @@ router.get('/:id', asyncHandler(async (req, res) => {
 }))
 
 // TODO - validations for post
-router.post('/', postValidations, asyncHandler(async (req, res) => {
+router.post(
+  '/',
+  singleMulterUpload('image'),
+  postValidations,
+  asyncHandler(async (req, res) => {
   // console.log('got to backend post route');
   const {
     name,
@@ -27,11 +37,12 @@ router.post('/', postValidations, asyncHandler(async (req, res) => {
     state,
     country,
     price,
-    imageUrl,
     description,
     details,
     userId
   } = req.body;
+
+  const imageUrl = await singlePublicFileUpload(req.file);
 
   // console.log('backend, before create: ', name,
   //   address,
