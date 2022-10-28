@@ -25,7 +25,7 @@ form {
   margin: 3em auto auto auto;
 }
 
-#sidebar-img {
+.sidebar-img {
   height: 60vh;
   width: fit-content;
   max-width: 60vw;

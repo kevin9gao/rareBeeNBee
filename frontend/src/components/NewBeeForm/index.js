@@ -20,6 +20,8 @@ const NewBeeForm = () => {
   const [details, setDetails] = useState('');
   const [validationErrors, setValidationErrors] = useState([]);
   const [hideErrors, setHideErrors] = useState(true);
+  // const [shownImg, setShownImg] = useState(0);
+  // const [previewURLs, setPreviewURLs] = useState('');
   const [sidebarImg, setSidebarImg] = useState('http://magarticles.magzter.com/articles/9340/217507/58ef23b4b6603/Rare-bees.jpg');
 
   const user = useSelector(state => state.session.user);
@@ -65,6 +67,19 @@ const NewBeeForm = () => {
     const previewUrl = URL.createObjectURL(coverImage);
     if (previewUrl) setSidebarImg(previewUrl);
   }, [coverImage]);
+
+  // useEffect(() => {
+  //   if (!addImages) return;
+
+  //   const fileList = [];
+
+  //   addImages.forEach(file => {
+  //     const previewUrl = URL.createObjectURL(file);
+  //     if (previewUrl) fileList.push(previewUrl);
+  //   })
+
+  //   setPreviewURLs(fileList);
+  // }, [addImages]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -112,9 +127,15 @@ const NewBeeForm = () => {
   const updateAdditionalImgs = e => {
     const files = e.target.files;
     // console.log('files', files);
-    if (files) setAddImages(files);
+    if (files) {
+      // console.log('files', files);
+      const fileList = [];
+      Array.from(files).forEach(file => fileList.push(file));
+      setAddImages(fileList);
+    }
     // console.log('addImages', addImages);
   }
+  // console.log('addImages', addImages);
 
   return (
     <div className="new-bee-main-container">
@@ -231,11 +252,20 @@ const NewBeeForm = () => {
       </main>
       <aside className="sidebar">
         <div className="new-bee-sidebar-img">
-          <img
-            src={sidebarImg}
-            id='sidebar-img'
-            alt="sidebar-img"
-          />
+          <picture id="sidebar-img">
+            <img
+              src={sidebarImg}
+              className='sidebar-img'
+              alt="sidebar-img"
+            />
+            {/* {previewURLs && previewURLs.forEach((imageUrl, idx) => (
+              <source
+                src={imageUrl}
+                className='sidebar-img'
+                hidden={!(shownImg === idx)}></source>
+              // console.log('imageUrl', imageUrl)
+            ))} */}
+          </picture>
         </div>
       </aside>
     </div>
