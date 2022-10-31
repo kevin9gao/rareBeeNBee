@@ -10,10 +10,53 @@ main {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  width: 60vw;
+}
+
+#pictures-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bee-pic {
-  width: 60vh;
+  width: 50%;
+  padding: 20px;
+}
+
+#small-pics-wrapper {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.small.bee-pic {
+  height: 50%;
+}
+
+#all-pics-btn-wrapper {
+  display: block;
+  position: absolute;
+  right: 22vw;
+  bottom: 3em;
+}
+
+#all-pics-btn {
+  height: 2.5em;
+  width: 11em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+#all-pics-btn img {
+  height: 20px;
+  width: 20px;
 }
 
 .lower {

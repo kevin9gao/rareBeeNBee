@@ -30,6 +30,31 @@ router.post(
     });
 
     return res.json(newImage);
-}))
+  })
+)
+
+// router.post(
+//   '/bees/:id',
+//   multipleMulterUpload('image'),
+//   asyncHandler(async (req, res) => {
+//     const beeId = req.params.id;
+//     const imageUrls = await multiplePublicFileUpload(req.files);
+
+//     imageUrls.forEach(async imageUrl => {
+//       const newImage = await db.Image.create({
+//         beeId,
+//         imageUrl
+//       })
+//     });
+
+//     return res.end();
+
+//     // const newImage = await db.Image.create({
+//     //   beeId,
+//     //   imageUrl,
+//     // });
+
+//     // return res.json(newImage);
+// }))
 
 module.exports = router;

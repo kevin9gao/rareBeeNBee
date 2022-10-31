@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
   session,
   bees,
   bookings,
-  // images,
+  images,
 });
 
 let enhancer;

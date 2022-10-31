@@ -1,21 +1,36 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getBees } from "../../store/bees";
+import { getSingleBeeImages } from '../../store/images';
 import BookingSidebar from "../Bookings/BookingSidebar";
 import EditBeeFormModal from "../EditBeeFormModal";
 import DeleteBeeModal from "./DeleteBeeModal";
+import AllPics from '../../images/nine-dots.jpg';
 import './SingleBee.css';
+import MorePicsModal from "./MorePicsModal";
 
 const SingleBee = () => {
   const dispatch = useDispatch();
   const { beeId } = useParams();
   const bee = useSelector(state => state.bees[beeId]);
   const user = useSelector(state => state.session.user);
+  const images = Object.values(useSelector(state => state.images));
+  const [addImages, setAddImages] = useState([]);
+  console.log('images SingleBee', images);
 
   useEffect(() => {
     dispatch(getBees());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getSingleBeeImages(beeId));
+  }, [beeId]);
+
+  // if (images) {
+  //   setAddImages(images.slice(0, 4));
+  // }
+  // console.log('addImages', addImages);
 
   if (!bee) {
     return null;
@@ -25,7 +40,21 @@ const SingleBee = () => {
     <main>
       <div className="upper">
         <h1>{bee.name}</h1>
-        <img className="bee-pic" src={bee.imageUrl} alt='bee' />
+        <div id="pictures-wrapper">
+          <img className="bee-pic" src={bee.imageUrl} alt='bee' />
+          <div id="small-pics-wrapper">
+            {images && images.slice(0, 4).map(image => (
+              <img
+                className="small bee-pic"
+                src={image.imageUrl}
+                key={image.id}
+              />
+            ))}
+            <div id="all-pics-btn-wrapper">
+              <MorePicsModal />
+            </div>
+          </div>
+        </div>
         <h3>{`${bee.city}, ${bee.state}, ${bee.country}`}</h3>
         {user && (bee.userId === user.id) && (
           <div id="edit-delete-bee">

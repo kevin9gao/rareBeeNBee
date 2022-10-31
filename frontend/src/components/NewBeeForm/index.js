@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { createBee } from "../../store/bees";
 import './BeeForm.css';
+import { addBeeImages } from "../../store/images";
 
 const NewBeeForm = () => {
   const dispatch = useDispatch();
@@ -91,7 +92,7 @@ const NewBeeForm = () => {
     }
 
     if (!validationErrors.length) {
-      const payload = {
+      let payload = {
         name,
         address,
         city,
@@ -112,6 +113,14 @@ const NewBeeForm = () => {
 
       if (newBee.id) {
         // console.log('handleSubmit(if newBee runs): ', newBee)
+        if (addImages) {
+          console.log('addImages payload', Array.from(addImages));
+          payload = {
+            imageList: Array.from(addImages)
+          };
+          dispatch(addBeeImages(payload, newBee.id));
+        }
+
         history.push(`/bees/${newBee.id}`);
       }
     } else setHideErrors(false);
