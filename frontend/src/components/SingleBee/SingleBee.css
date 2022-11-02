@@ -10,10 +10,59 @@ main {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  width: 60vw;
+}
+
+#pictures-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bee-pic {
-  width: 60vh;
+  width: 50%;
+  padding: 20px;
+}
+
+#small-pics-wrapper {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.small.bee-pic {
+  height: 50%;
+}
+
+#all-pics-btn-wrapper {
+  display: block;
+  position: relative;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+#all-pics-btn-wrapper-2 {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#all-pics-btn {
+  height: 2.5em;
+  width: 11em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+#all-pics-btn img {
+  height: 20px;
+  width: 20px;
 }
 
 .lower {
@@ -71,4 +120,45 @@ main {
 .edit-bee:hover {
   transition: all ease-in 3s;
   background: linear-gradient(to right, #48024e 0%, #720240 50%, #5e0175b9 100%);
+}
+
+/* Show all photos */
+
+#all-pics-wrapper {
+  width: 65vw;
+}
+
+.no-add-pics.wrapper,
+.add-pics.wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.no-add-pics.wrapper img {
+  width: 100%;
+  margin: 1em;
+}
+
+.add-pics.wrapper img {
+  width: 45%;
+  margin: 1em;
+}
+
+.back-btn-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 1em;
+}
+
+.back-btn-wrapper img {
+  width: 23px;
+  margin: 0 1em 0 0;
+}
+
+.back-btn-wrapper button {
+  display: flex;
+  align-items: center;
 }

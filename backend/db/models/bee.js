@@ -62,6 +62,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Bee.belongsTo(models.User, { foreignKey: 'userId' })
     Bee.hasMany(models.Booking, { foreignKey: 'beeId' })
+    Bee.hasMany(models.Image, { foreignKey: 'beeId' })
   };
   return Bee;
 };

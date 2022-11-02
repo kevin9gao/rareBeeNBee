@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { createBee } from "../../store/bees";
 import './BeeForm.css';
+import { addBeeImages } from "../../store/images";
 
 const NewBeeForm = () => {
   const dispatch = useDispatch();
@@ -14,26 +15,17 @@ const NewBeeForm = () => {
   const [state, setState] = useState('');
   const [country, setCountry] = useState('');
   const [price, setPrice] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [coverImage, setCoverImage] = useState(null);
+  const [addImages, setAddImages] = useState(null);
   const [description, setDescription] = useState('');
   const [details, setDetails] = useState('');
   const [validationErrors, setValidationErrors] = useState([]);
   const [hideErrors, setHideErrors] = useState(true);
+  // const [shownImg, setShownImg] = useState(0);
+  // const [previewURLs, setPreviewURLs] = useState('');
   const [sidebarImg, setSidebarImg] = useState('http://magarticles.magzter.com/articles/9340/217507/58ef23b4b6603/Rare-bees.jpg');
 
   const user = useSelector(state => state.session.user);
-
-  useEffect(() => {
-    if (imageUrl.length > 0) {
-      if (imageUrl.toLowerCase().endsWith('.jpg') ||
-        imageUrl.toLowerCase().endsWith('.jpeg') ||
-        imageUrl.toLowerCase().endsWith('.png')) {
-        setSidebarImg(imageUrl)
-      }
-    } else if (imageUrl.length === 0) {
-      setSidebarImg('http://magarticles.magzter.com/articles/9340/217507/58ef23b4b6603/Rare-bees.jpg');
-    }
-  }, [imageUrl])
 
   useEffect(() => {
     const errors = [];
@@ -60,13 +52,6 @@ const NewBeeForm = () => {
     } else if (Number(price) >= 100000000) {
       errors.push('That bee is too expensive.')
     }
-    if (imageUrl.length <= 1 || imageUrl.length > 500) {
-      errors.push('Image Url must be between 1 and 500 characters long.')
-    } else if (!(imageUrl.toLowerCase().endsWith('.jpg') ||
-    imageUrl.toLowerCase().endsWith('.jpeg') ||
-    imageUrl.toLowerCase().endsWith('.png'))) {
-      errors.push('Image must be a .jpg, .jpeg, or .png link.')
-    }
     if (description.length > 256) {
       errors.push('Description cannot be more than 256 characters long.')
     }
@@ -75,7 +60,27 @@ const NewBeeForm = () => {
     }
 
     setValidationErrors(errors);
-  }, [name, address, city, state, country, price, imageUrl, description, details]);
+  }, [name, address, city, state, country, price, description, details]);
+
+  useEffect(() => {
+    if (!coverImage) return;
+
+    const previewUrl = URL.createObjectURL(coverImage);
+    if (previewUrl) setSidebarImg(previewUrl);
+  }, [coverImage]);
+
+  // useEffect(() => {
+  //   if (!addImages) return;
+
+  //   const fileList = [];
+
+  //   addImages.forEach(file => {
+  //     const previewUrl = URL.createObjectURL(file);
+  //     if (previewUrl) fileList.push(previewUrl);
+  //   })
+
+  //   setPreviewURLs(fileList);
+  // }, [addImages]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,33 +91,60 @@ const NewBeeForm = () => {
       setHideErrors(false);
     }
 
-    const payload = {
-      name,
-      address,
-      city,
-      state,
-      country,
-      price,
-      imageUrl,
-      description,
-      details,
-      userId: user.id
-    };
+    if (!validationErrors.length) {
+      let payload = {
+        name,
+        address,
+        city,
+        state,
+        country,
+        price,
+        image: coverImage,
+        description,
+        details,
+        userId: user.id
+      };
 
-    // console.log('handleSubmit(before): ', payload)
+      // console.log('handleSubmit(before): ', payload)
 
-    let newBee = await dispatch(createBee(payload));
-    // console.log('handleSubmit(after): ', newBee)
-    // console.log('errors within handleSubmit: ', errors)
+      let newBee = await dispatch(createBee(payload));
+      // console.log('handleSubmit(after): ', newBee)
+      // console.log('errors within handleSubmit: ', errors)
 
-    if (newBee.id) {
-      // console.log('handleSubmit(if newBee runs): ', newBee)
-      history.push(`/bees/${newBee.id}`);
-    } else {
-      // console.log('got to else in NewBeeForm')
-      setHideErrors(false);
-    }
+      if (newBee.id) {
+        // console.log('handleSubmit(if newBee runs): ', newBee)
+        if (addImages) {
+          console.log('addImages payload', Array.from(addImages));
+          payload = {
+            imageList: Array.from(addImages)
+          };
+          dispatch(addBeeImages(payload, newBee.id));
+        }
+
+        history.push(`/bees/${newBee.id}`);
+      }
+    } else setHideErrors(false);
   }
+
+  const updateCoverImg = e => {
+    const file = e.target.files[0];
+    // console.log('file', file);
+    if (file) setCoverImage(file);
+    // console.log('coverImage', coverImage);
+  }
+
+  const updateAdditionalImgs = e => {
+    const files = e.target.files;
+    // console.log('files', files);
+    if (files) {
+      // console.log('files', files);
+      const fileList = [];
+      Array.from(files).forEach(file => fileList.push(file));
+      setAddImages(fileList);
+    }
+    // console.log('addImages', addImages);
+  }
+  // console.log('addImages', addImages);
 
   return (
     <div className="new-bee-main-container">
@@ -135,6 +167,7 @@ const NewBeeForm = () => {
           </div>
           <form
             className="forms"
+            id="new-bee-form"
             onSubmit={handleSubmit}
           >
             <label>Name</label>
@@ -179,13 +212,6 @@ const NewBeeForm = () => {
               value={price}
               placeholder='Price for One Bee Catching Session...'
             />
-            <label>Image Url</label>
-            <input
-              type='text'
-              onChange={e => setImageUrl(e.target.value)}
-              value={imageUrl}
-              placeholder='Link to a picture of the bee...'
-            />
             <label>Description</label>
             <input
               type='text'
@@ -200,17 +226,55 @@ const NewBeeForm = () => {
               value={details}
               placeholder='Some details about the bee...'
             />
+            <div className="img-label-wrapper" id="cover-img-label-wrapper">
+              <div>
+                <label>Cover Image:&nbsp;</label>
+              </div>
+              <label className="img-details">
+                The first image of your bee you would like users to see.
+              </label>
+            </div>
+            <input
+              type='file'
+              accept="image/*"
+              onChange={updateCoverImg}
+              className='upload-file'
+            />
+            <div className="img-label-wrapper">
+              <div>
+                <label>Additional Images:&nbsp;</label>
+              </div>
+              <label className="img-details">
+                Additional images of your bee.
+              </label>
+            </div>
+            <input
+              type='file'
+              accept="image/*"
+              multiple
+              onChange={updateAdditionalImgs}
+              className='upload-file'
+            />
             <button id='new-bee-submit'>Submit</button>
           </form>
         </div>
       </main>
       <aside className="sidebar">
         <div className="new-bee-sidebar-img">
-          <img
-            src={sidebarImg}
-            id='sidebar-img'
-            alt="sidebar-img"
-          />
+          <picture id="sidebar-img">
+            <img
+              src={sidebarImg}
+              className='sidebar-img'
+              alt="sidebar-img"
+            />
+            {/* {previewURLs && previewURLs.forEach((imageUrl, idx) => (
+              <source
+                src={imageUrl}
+                className='sidebar-img'
+                hidden={!(shownImg === idx)}></source>
+              // console.log('imageUrl', imageUrl)
+            ))} */}
+          </picture>
         </div>
       </aside>
     </div>

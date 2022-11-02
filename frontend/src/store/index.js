@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import session from "./session";
 import bees from './bees';
 import bookings from './bookings';
+import images from './images';
 
 const rootReducer = combineReducers({
   session,
   bees,
-  bookings
+  bookings,
+  images,
 });
 
 let enhancer;
