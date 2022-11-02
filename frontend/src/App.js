@@ -11,6 +11,7 @@ import { getBees } from "./store/bees";
 import BookingSuccess from "./components/Bookings/BookingSuccess";
 import UserBookings from "./components/Bookings/UserBookings";
 import ProfilePage from "./components/ProfilePage";
+import MorePics from "./components/SingleBee/MorePics";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route exact path='/bees/new'>
             <NewBeeForm />
+          </Route>
+          <Route exact path='/bees/:beeId/all-pics'>
+            <MorePics />
           </Route>
           <Route path={`/bees/:beeId`}>
             <SingleBee />
