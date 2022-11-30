@@ -40,6 +40,12 @@ module.exports = {
         hashedPassword: bcrypt.hashSync('password3'),
         profilePicUrl: 'https://static.wikia.nocookie.net/bb6b9a39-8699-4ab7-9f8d-3109ac9cc0b0/scale-to-width/755'
       },
+      {
+        email: 'kevin@aa.io',
+        username: 'kevin',
+        hashedPassword: bcrypt.hashSync('password'),
+        profilePicUrl: 'https://d1ki6hjeuoplax.cloudfront.net/images/_headerImage/7201174/Aurelion-Sol-LoR.webp'
+      },
     ], {});
   },
 
