@@ -72,8 +72,8 @@ module.exports = {
         price: 145.45,
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Bombus_flavifrons.jpg',
         userId: 2,
-        description: 'The emerald cockroach wasp or jewel wasp (Ampulex compressa) is a solitary wasp of the family Ampulicidae. It is known for its unusual reproductive behavior, which involves stinging a cockroach and using it as a host for its larvae. It thus belongs to the entomophagous parasites.',
-        details: "The wasp has a metallic blue-green body, with the thighs of the second and third pair of legs red. The female is about 22 mm long; the male is smaller and lacks a stinger.[2] Males can be less than half of a female in size if emerging from a smaller or a superparasitized host.[3] The species undergoes four larval stages, where the initial younger larvae can be seen as external hemolymph-feeders on the paralysed roach's leg, and the last instar feeds internally.[6] Upon pupation it produces a chocolate-coloured, thick, spindle-shaped cocoon which can be found inside the dead cockroach within the burrow."
+        description: 'The emerald cockroach wasp or jewel wasp (Ampulex compressa) is a solitary wasp of the family Ampulicidae.',
+        details: "It is known for its unusual reproductive behavior, which involves stinging a cockroach and using it as a host for its larvae. It thus belongs to the entomophagous parasites. The wasp has a metallic blue-green body, with the thighs of the second and third pair of legs red. The female is about 22 mm long; the male is smaller and lacks a stinger.[2] Males can be less than half of a female in size if emerging from a smaller or a superparasitized host.[3] The species undergoes four larval stages, where the initial younger larvae can be seen as external hemolymph-feeders on the paralysed roach's leg, and the last instar feeds internally.[6] Upon pupation it produces a chocolate-coloured, thick, spindle-shaped cocoon which can be found inside the dead cockroach within the burrow."
       },
       {
         name: 'Mud Dauber',
@@ -84,7 +84,7 @@ module.exports = {
         price: 76.00,
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Sceliphron_caementarium_MHNT_Profil.jpg/250px-Sceliphron_caementarium_MHNT_Profil.jpg',
         userId: 2,
-        description: 'Mud dauber (or "mud wasp" or "dirt dauber") is a name commonly applied to a number of wasps from either the family Sphecidae or Crabronidae which build their nests from mud; this excludes members of the family Vespidae (especially the subfamily Eumeninae), that are instead referred to as "potter wasps".',
+        description: 'Mud dauber (or "mud wasp" or "dirt dauber") is a name commonly applied to a number of wasps from either the family Sphecidae or Crabronidae.',
         details: "Mud daubers belong to different families and are variable in appearance. Most are long, slender wasps about 1 inch (25 mm) in length.[1] The name refers to the nests that are made by the female wasps, which consist of mud molded into place by the wasp's mandibles. Mud daubers are not normally aggressive, but can become belligerent when threatened. Stings are uncommon."
       },
       {
@@ -96,7 +96,7 @@ module.exports = {
         price: 86.43,
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Meliponula_ferruginea.jpg/220px-Meliponula_ferruginea.jpg',
         userId: 2,
-        description: 'Stingless bees, sometimes called stingless honey bees or simply meliponines, are a large group of bees (about 550 described species), comprising the tribe Meliponini[1][2] (or subtribe Meliponina according to other authors).[3] They belong in the family Apidae, and are closely related to common honey bees, carpenter bees, orchid bees, and bumblebees.',
+        description: 'Stingless bees, sometimes called stingless honey bees or simply meliponines, are a large group of bees (about 550 described species), comprising the tribe Meliponini[1][2] (or subtribe Meliponina according to other authors).[3] ',
         details: "Meliponines have stingers, but they are highly reduced and cannot be used for defense, though these bees exhibit other defensive behaviors and mechanisms. Meliponines are not the only type of bee incapable of stinging: all male bees and many female bees of several other families, such as Andrenidae, also cannot sting.[1] Some stingless bees have powerful mandibles and can inflict painful bites."
       },
       {
