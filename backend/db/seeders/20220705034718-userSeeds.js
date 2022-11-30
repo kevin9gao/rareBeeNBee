@@ -57,7 +57,8 @@ module.exports = {
                             'Beecatcher2',
                             'Beecatcher3',
                             'Beecatcher4',
-                            'Beecatcher5',] }
+                            'Beecatcher5',
+                            'kevin'] }
     }, {});
   }
 };
