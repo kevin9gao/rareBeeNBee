@@ -71,7 +71,7 @@ module.exports = {
         country: 'Phillipines',
         price: 145.45,
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Bombus_flavifrons.jpg',
-        userId: 2,
+        userId: 3,
         description: 'The emerald cockroach wasp or jewel wasp (Ampulex compressa) is a solitary wasp of the family Ampulicidae.',
         details: "It is known for its unusual reproductive behavior, which involves stinging a cockroach and using it as a host for its larvae. It thus belongs to the entomophagous parasites. The wasp has a metallic blue-green body, with the thighs of the second and third pair of legs red. The female is about 22 mm long; the male is smaller and lacks a stinger.[2] Males can be less than half of a female in size if emerging from a smaller or a superparasitized host.[3] The species undergoes four larval stages, where the initial younger larvae can be seen as external hemolymph-feeders on the paralysed roach's leg, and the last instar feeds internally.[6] Upon pupation it produces a chocolate-coloured, thick, spindle-shaped cocoon which can be found inside the dead cockroach within the burrow."
       },
@@ -83,7 +83,7 @@ module.exports = {
         country: 'USA',
         price: 76.00,
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Sceliphron_caementarium_MHNT_Profil.jpg/250px-Sceliphron_caementarium_MHNT_Profil.jpg',
-        userId: 2,
+        userId: 4,
         description: 'Mud dauber (or "mud wasp" or "dirt dauber") is a name commonly applied to a number of wasps from either the family Sphecidae or Crabronidae.',
         details: "Mud daubers belong to different families and are variable in appearance. Most are long, slender wasps about 1 inch (25 mm) in length.[1] The name refers to the nests that are made by the female wasps, which consist of mud molded into place by the wasp's mandibles. Mud daubers are not normally aggressive, but can become belligerent when threatened. Stings are uncommon."
       },
@@ -107,7 +107,7 @@ module.exports = {
         country: 'Australia',
         price: 135.68,
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Orchid_Bee_hovering.jpg/220px-Orchid_Bee_hovering.jpg',
-        userId: 2,
+        userId: 5,
         description: 'The tribe Euglossini, in the subfamily Apinae, commonly known as orchid bees or euglossine bees, are the only group of corbiculate bees whose non-parasitic members do not all possess eusocial behavior.',
         details: "Male orchid bees have uniquely modified legs which are used to collect and store different volatile compounds (often esters) throughout their lives, primarily from orchids in the subtribes Stanhopeinae and Catasetinae, where all species are exclusively pollinated by euglossine males. These orchids do not produce nectar, and hide the pollen on a single anther under an anther cap; they are not visited by females."
       },
@@ -119,7 +119,7 @@ module.exports = {
         country: 'USA',
         price: 64.50,
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Nomada_fulvicornis01.jpg/220px-Nomada_fulvicornis01.jpg',
-        userId: 2,
+        userId: 4,
         description: 'Nomadinae is a subfamily of bees in the family Apidae. They are known commonly as cuckoo bees.',
         details: "This subfamily is entirely kleptoparasitic.[2] They occur worldwide, and use many different types of bees as hosts. As parasites, they lack a pollen-carrying scopa, and are often extraordinarily wasp-like in appearance. All known species share the behavioral trait of females entering host nests when the host is absent, and inserting their eggs into the wall of the host cell; the larval parasite emerges later, after the cell has been closed by the host female, and kills the host larva. The first-instar larvae of nomadines are specially adapted for this, and possess long mandibles they use to kill the host larva, though these mandibles are lost as soon as the larva molts to the second instar, at which point it simply feeds on the pollen/nectar provisions. A behavioral habit shared by adults of various genera with males of many other bee species, who also do not possess a nest to return to, is that they frequently rest while grasping onto plant stems or leaves with only their mandibles."
       },
