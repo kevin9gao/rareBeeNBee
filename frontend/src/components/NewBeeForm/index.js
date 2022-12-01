@@ -261,11 +261,11 @@ const NewBeeForm = () => {
       </main>
       <aside className="sidebar">
         <div className="new-bee-sidebar-img">
-          <picture id="sidebar-img">
-            <img
-              src={sidebarImg}
-              className='sidebar-img'
-              alt="sidebar-img"
+          {/* <picture id="sidebar-img"> */}
+          <img
+            src={sidebarImg}
+            className='sidebar-img'
+            alt="sidebar-img"
             />
             {/* {previewURLs && previewURLs.forEach((imageUrl, idx) => (
               <source
@@ -274,7 +274,7 @@ const NewBeeForm = () => {
                 hidden={!(shownImg === idx)}></source>
               // console.log('imageUrl', imageUrl)
             ))} */}
-          </picture>
+          {/* </picture> */}
         </div>
       </aside>
     </div>
