@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createBee } from "../../store/bees";
 import './BeeForm.css';
 import { addBeeImages } from "../../store/images";
+import { getAllLocales } from "../../store/locales";
 
 const NewBeeForm = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const NewBeeForm = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [country, setCountry] = useState('');
+  const [locale, setLocale] = useState('');
   const [price, setPrice] = useState('');
   const [coverImage, setCoverImage] = useState(null);
   const [addImages, setAddImages] = useState(null);
@@ -69,6 +71,18 @@ const NewBeeForm = () => {
     if (previewUrl) setSidebarImg(previewUrl);
   }, [coverImage]);
 
+  useEffect(() => {
+    dispatch(getAllLocales());
+  }, []);
+
+  const locales = useSelector(state => state.locales);
+  // console.log('locales', locales);
+
+  const options = locales ? Object.values(locales).map(option => option.name) : null;
+  // console.log('options', options);
+
+  // console.log('locale', locale);
+
   // useEffect(() => {
   //   if (!addImages) return;
 
@@ -98,6 +112,7 @@ const NewBeeForm = () => {
         city,
         state,
         country,
+        localeId: locale,
         price,
         image: coverImage,
         description,
@@ -205,6 +220,19 @@ const NewBeeForm = () => {
               value={country}
               placeholder='Country of bee spotting...'
             />
+            <label>Locale</label>
+            <select
+              value={locale === '' ? null : locale}
+              onChange={e => setLocale(e.target.value)}
+              >
+                <option
+                  selected
+                  disabled
+                  >Select a locale where this bee is found...</option>
+                {options?.map(option => (
+                  <option value={options.indexOf(option) + 1}>{option}</option>
+                ))}
+              </select>
             <label>Price</label>
             <input
               type='text'

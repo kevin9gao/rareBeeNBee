@@ -56,6 +56,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     details: {
       type: DataTypes.STRING(1000),
+    },
+    localeId: {
+      type: DataTypes.INTEGER
     }
   }, {});
   Bee.associate = function(models) {
@@ -63,6 +66,7 @@ module.exports = (sequelize, DataTypes) => {
     Bee.belongsTo(models.User, { foreignKey: 'userId' })
     Bee.hasMany(models.Booking, { foreignKey: 'beeId' })
     Bee.hasMany(models.Image, { foreignKey: 'beeId' })
+    Bee.belongsTo(models.Locale, { foreignKey: 'localeId' })
   };
   return Bee;
 };

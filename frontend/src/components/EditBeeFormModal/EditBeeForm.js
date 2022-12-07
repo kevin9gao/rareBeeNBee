@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
 import { editBee, getBees } from "../../store/bees";
+import { getAllLocales } from "../../store/locales";
 import '../NewBeeForm/BeeForm.css';
 
 const EditBeeForm = ({ setShowModal }) => {
@@ -17,6 +18,7 @@ const EditBeeForm = ({ setShowModal }) => {
   const [city, setCity] = useState(bee.city);
   const [state, setState] = useState(bee.state);
   const [country, setCountry] = useState(bee.country);
+  const [localeId, setLocaleId] = useState(bee.localeId);
   const [price, setPrice] = useState(bee.price);
   const [imageUrl, setImageUrl] = useState(bee.imageUrl);
   const [description, setDescription] = useState(bee.description);
@@ -27,7 +29,11 @@ const EditBeeForm = ({ setShowModal }) => {
 
   useEffect(() => {
     dispatch(getBees());
+    dispatch(getAllLocales());
   }, [dispatch]);
+
+  const locales = useSelector(state => state.locales);
+  const options = locales ? Object.values(locales).map(option => option.name) : null;
 
   useEffect(() => {
     if (imageUrl.length > 0) {
@@ -90,6 +96,7 @@ const EditBeeForm = ({ setShowModal }) => {
       city,
       state,
       country,
+      localeId,
       price,
       imageUrl,
       description,
@@ -179,6 +186,21 @@ const EditBeeForm = ({ setShowModal }) => {
                 placeholder={country}
                 required
               />
+            </div>
+            <div className="edit-inputs">
+              <label>Locale</label>
+              <select
+                value={localeId === null ? null : localeId}
+                onChange={e => setLocaleId(e.target.value)}
+                >
+                  <option
+                    selected={localeId === null}
+                    disabled
+                    >Add a locale...</option>
+                  {options?.map(option => (
+                    <option value={options.indexOf(option) + 1}>{option}</option>
+                  ))}
+                </select>
             </div>
             <div className="edit-inputs">
               <label>Price</label>

@@ -1,12 +1,14 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
+import locales from './locales';
 import bees from './bees';
 import bookings from './bookings';
 import images from './images';
 
 const rootReducer = combineReducers({
   session,
+  locales,
   bees,
   bookings,
   images,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import DeadLink from '../../dead link.jpg';
+import DeadLink from '../../images/dead link.jpg';
 import { updateProfPic } from "../../store/session";
 
 const UpdatePic = ({ user, setShowModal }) => {
