@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Locale.associate = function(models) {
     // associations can be defined here
+    Locale.hasMany(models.Bee, { foreignKey: 'localeId' })
   };
   return Locale;
 };

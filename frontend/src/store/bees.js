@@ -65,6 +65,7 @@ export const createBee = payload => async dispatch => {
     city,
     state,
     country,
+    localeId,
     price,
     image,
     description,
@@ -78,6 +79,7 @@ export const createBee = payload => async dispatch => {
   formData.append('city', city);
   formData.append('state', state);
   formData.append('country', country);
+  formData.append('localeId', localeId);
   formData.append('price', price);
   formData.append('description', description);
   formData.append('details', details);

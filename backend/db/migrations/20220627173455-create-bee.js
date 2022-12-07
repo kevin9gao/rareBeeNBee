@@ -47,6 +47,10 @@ module.exports = {
       details: {
         type: Sequelize.STRING(1000),
       },
+      localeId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'Locales' }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
