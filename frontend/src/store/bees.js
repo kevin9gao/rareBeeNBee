@@ -159,14 +159,14 @@ const beesReducer = (state = initialState, action) => {
       // Loading multiple bees
       } else {
         // console.log('got to reducer');
+        delete state['list']
         const allBees = {};
         action.list.forEach(bee => {
           allBees[bee.id] = bee;
         });
         return {
           ...allBees,
-          ...state,
-          list: sortList(action.list)
+          ...state
         };
       }
     case ADD_EDIT:
