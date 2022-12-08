@@ -31,14 +31,19 @@ main {
 }
 
 .main-wrapper {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  display: flex;
+  flex-direction: column;
   margin: 1em 3em;
   /* display: flex;
   flex-direction: row;
   justify-content: center;
   width: 100%;
   flex-wrap: wrap; */
+}
+
+#bee-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
 }
 
 .card-content h4 {
@@ -52,4 +57,43 @@ main {
     justify-content: flex-start;
     align-items: center;
   }
+}
+
+
+/* Locales Bar */
+
+#locale-bar-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 1em;
+}
+
+.locale-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.locale-btn:hover {
+  box-shadow: none;
+  color: black;
+  text-decoration: underline 1px #717171;
+  text-underline-offset: 1.3em;
+}
+
+.locale-btn img {
+  width: 25px;
+  margin: 1em;
+}
+
+.locale-btn span {
+  color: #717171;
+  padding-bottom: 1em;
+}
+
+.locale-btn span:hover {
+  color: black;
 }
