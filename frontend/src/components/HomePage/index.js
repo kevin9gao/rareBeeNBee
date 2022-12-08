@@ -10,9 +10,11 @@ function HomePage() {
   const [localeFilter, setLocaleFilter] = useState('');
   console.log('localeFilter', localeFilter);
 
-  const bees = useSelector(state => {
-    return state.bees.list.map(beeId => state.bees[beeId]);
-  });
+  const beesSelector = useSelector(state => state.bees);
+
+  const beesArray = beesSelector ? Object.values(beesSelector) : null;
+
+  const bees = localeFilter ? beesArray.filter(bee => bee.localeId === localeFilter) : beesArray;
 
   useEffect(() => {
     dispatch(getBees());
@@ -23,7 +25,7 @@ function HomePage() {
       <main>
         <div className="main-wrapper">
           <div className="hp-locale-wrapper">
-            <LocaleBar setLocaleFilter={setLocaleFilter} />
+            <LocaleBar localeFilter={localeFilter} setLocaleFilter={setLocaleFilter} />
           </div>
           <div id="bee-grid">
             {bees.map(bee => {

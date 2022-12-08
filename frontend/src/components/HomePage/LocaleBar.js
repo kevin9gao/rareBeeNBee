@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllLocales } from "../../store/locales";
 
-export default function LocaleBar({ setLocaleFilter }) {
+export default function LocaleBar({ localeFilter, setLocaleFilter }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,12 +23,19 @@ export default function LocaleBar({ setLocaleFilter }) {
     <div id="locale-bar-wrapper">
       {localeBar && localeBar.map(locale => (
         <button
-          className="locale-btn"
+          className={`locale-btn ${locale.id === localeFilter ? 'active' : ''}`}
           onClick={e => setFilter(e, locale)}>
             <img src={locale.iconUrl} />
             <span>{locale.name}</span>
           </button>
       ))}
+      {localeFilter && (
+        <button
+          className="locale-btn"
+          onClick={e => setLocaleFilter('')}>
+            Clear Filter
+          </button>
+      )}
     </div>
   );
 }
