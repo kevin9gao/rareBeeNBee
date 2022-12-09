@@ -8,6 +8,7 @@ import Logo from '../../../src/favicon.png';
 import './Navigation.css';
 import SignupFormModal from '../SignupFormModal';
 import AboutPageModal from './AboutPageModal';
+import SearchBar from '../SearchBar/SearchBar';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -38,6 +39,9 @@ function Navigation({ isLoaded }) {
           <h2 id='title'>RareBeeNBee</h2>
         </a>
         <AboutPageModal />
+      </div>
+      <div id='middle'>
+        <SearchBar />
       </div>
       <div id='right-side'>
         <NavLink exact className='links' to="/">Home</NavLink>

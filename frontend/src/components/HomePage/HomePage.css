@@ -103,3 +103,7 @@ main {
 .locale-btn span:hover {
   color: black;
 }
+
+.hp-locale-wrapper {
+  z-index: -1;
+}
