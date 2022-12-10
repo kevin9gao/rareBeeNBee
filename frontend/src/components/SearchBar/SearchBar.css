@@ -4,7 +4,8 @@
 }
 
 #search-wrapper div,
-#search-form {
+#search-form,
+.suggestions a {
   width: 100%;
   height: 100%;
 }
@@ -17,6 +18,21 @@
 }
 
 #suggestions-wrapper {
-  background-color: purple;
-  z-index: 10;
+  background-color: white;
+  padding: .5em;
+}
+
+#search-btn {
+  width: 18vw;
+  height: 100%;
+  transition: all .5s ease;
+}
+
+#search-btn-wrapper {
+  height: 100%;
+  transition: all .5s ease;
+}
+
+.suggestions {
+  padding: .8em;
 }

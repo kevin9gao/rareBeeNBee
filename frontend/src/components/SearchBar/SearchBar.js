@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import './SearchBar.css';
 
-export default function SearchBar() {
+export default function SearchBar({ setShowModal }) {
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -23,7 +23,7 @@ export default function SearchBar() {
 
     setSuggestions(matches);
 
-    if (searchInput === '') setSuggestions([]);
+    if (!searchInput.length) setSuggestions([]);
   }, [searchInput]);
   console.log('suggestions', suggestions);
 
@@ -35,15 +35,16 @@ export default function SearchBar() {
             value={searchInput}
             onChange={e => setSearchInput(e.target.value)}
             placeholder='Search for a bee...'
+            autoFocus
             />
         </form>
         <div
           id="suggestions-wrapper"
-          hidden={!suggestions}
+          hidden={!suggestions.length}
           >
           {suggestions && suggestions.map(bee => (
             <div className="suggestions">
-              <NavLink exact to={`/bees/${bee.id}`}>
+              <NavLink exact to={`/bees/${bee.id}`} onClick={() => setShowModal(false)}>
                 {bee.name}
               </NavLink>
             </div>

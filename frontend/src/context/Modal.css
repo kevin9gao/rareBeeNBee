@@ -22,3 +22,10 @@
   position: absolute;
   background-color:white;
 }
+
+#modal-content.search {
+  position: absolute;
+  top: 2em;
+  background-color:white;
+  transition: all .5s ease;
+}
