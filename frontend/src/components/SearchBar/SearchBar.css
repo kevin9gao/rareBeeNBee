@@ -1,0 +1,38 @@
+#search-wrapper {
+  width: 18vw;
+  height: 100%;
+}
+
+#search-wrapper div,
+#search-form,
+.suggestions a {
+  width: 100%;
+  height: 100%;
+}
+
+#search-form input {
+  width: 100%;
+  border-radius: 20px;
+  height: 100%;
+  padding: 1em;
+}
+
+#suggestions-wrapper {
+  background-color: white;
+  padding: .5em;
+}
+
+#search-btn {
+  width: 18vw;
+  height: 100%;
+  transition: all .5s ease;
+}
+
+#search-btn-wrapper {
+  height: 100%;
+  transition: all .5s ease;
+}
+
+.suggestions {
+  padding: .8em;
+}

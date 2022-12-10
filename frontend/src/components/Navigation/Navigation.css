@@ -3,6 +3,7 @@
 }
 
 .navbar-wrapper {
+  height: 8vh;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -23,6 +24,13 @@
 #demo-user {
   font-size: 14px;
   font-weight: 600;
+}
+
+#middle {
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 a:hover {
