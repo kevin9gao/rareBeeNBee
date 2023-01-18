@@ -162,7 +162,7 @@ const BookingSidebar = () => {
         {!!stayLength.current && (
           <div
             className="price-totals"
-            hidden={hidePriceCalcs}
+            // hidden={hidePriceCalcs}
           >
             <div className="price-breakdown-div">
               <p className="subtotals">
