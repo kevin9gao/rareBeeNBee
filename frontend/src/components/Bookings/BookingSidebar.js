@@ -31,6 +31,9 @@ const BookingSidebar = () => {
     totalPrice.current = ((price * stayLength.current) + hospitalityFee).toFixed(2);
     dispatch(getBees());
   }, [startDate, endDate, hospitalityFee, price, dispatch]);
+  
+  console.log('stayLength.current', stayLength.current)
+  console.log('hidePriceCalcs', hidePriceCalcs)
 
   useEffect(() => {
     const errors = [];
