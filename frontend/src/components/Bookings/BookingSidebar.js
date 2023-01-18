@@ -34,6 +34,7 @@ const BookingSidebar = () => {
   
   console.log('stayLength.current', stayLength.current)
   console.log('hidePriceCalcs', hidePriceCalcs)
+  console.log('validationErrors', validationErrors)
 
   useEffect(() => {
     const errors = [];
