@@ -32,9 +32,10 @@ const BookingSidebar = () => {
     dispatch(getBees());
   }, [startDate, endDate, hospitalityFee, price, dispatch]);
   
+  console.log('validationErrors', validationErrors)
+  console.log('validationErrors.length', validationErrors.length)
   console.log('stayLength.current', stayLength.current)
   console.log('hidePriceCalcs', hidePriceCalcs)
-  console.log('validationErrors', validationErrors)
 
   useEffect(() => {
     const errors = [];
