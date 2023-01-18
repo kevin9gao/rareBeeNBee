@@ -34,7 +34,14 @@ const BookingSidebar = () => {
 
   useEffect(() => {
     const errors = [];
-
+    
+    if (!startDate) {
+      errors.push('Please enter a start date.');
+    }
+    if (!endDate) {
+      errors.push('Please enter a end date.');
+    }
+    
     if (new Date(startDate) < (new Date())) {
       errors.push('Start date must be in the future.');
     } else if (new Date(endDate) < new Date(startDate)) {
