@@ -134,6 +134,29 @@ const BookingSidebar = () => {
             <p id='day'>day</p>
           </div>
         </div>
+        {!!stayLength.current && (
+          <div
+            className="price-totals"
+            hidden={validationErrors.length}
+          >
+            <div className="price-breakdown-div">
+              <p className="subtotals">
+                {`$${price} x ${stayLength.current} days`}
+              </p>
+              <p className="subtotal-by-day">
+                {`$${(price * stayLength.current).toFixed(2)}`}
+              </p>
+            </div>
+            <div className="price-breakdown-div">
+              <p>Hospitality fees</p>
+              <p>{`$${hospitalityFee}`}</p>
+            </div>
+            <div className="price-breakdown-div" id="total">
+              <p>Total</p>
+              <p>{`$${totalPrice.current}`}</p>
+            </div>
+          </div>
+        )}
         <form
           onSubmit={handleSubmit}
         >
@@ -159,29 +182,6 @@ const BookingSidebar = () => {
             Reserve
           </button>
         </form>
-        {!!stayLength.current && (
-          <div
-            className="price-totals"
-            // hidden={hidePriceCalcs}
-          >
-            <div className="price-breakdown-div">
-              <p className="subtotals">
-                {`$${price} x ${stayLength.current} days`}
-              </p>
-              <p className="subtotal-by-day">
-                {`$${(price * stayLength.current).toFixed(2)}`}
-              </p>
-            </div>
-            <div className="price-breakdown-div">
-              <p>Hospitality fees</p>
-              <p>{`$${hospitalityFee}`}</p>
-            </div>
-            <div className="price-breakdown-div" id="total">
-              <p>Total</p>
-              <p>{`$${totalPrice.current}`}</p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
