@@ -53,10 +53,14 @@ const BookingSidebar = () => {
     }
 
     setValidationErrors(errors);
+    
+    if (validationErrors.length) {
+      setHidePriceCalcs(true);
+    } else setHidePriceCalcs(false);
 
-    if (!validationErrors.length) {
-      setHidePriceCalcs(false)
-    } else setHidePriceCalcs(true);
+    // if (!validationErrors.length) {
+    //   setHidePriceCalcs(false)
+    // } else setHidePriceCalcs(true);
 
     dispatch(getBees());
   }, [startDate, endDate, dispatch]);
