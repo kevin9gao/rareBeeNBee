@@ -139,6 +139,9 @@ router.delete('/:id', asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const bee = await db.Bee.findByPk(id);
+
+  console.log('backend bee router id', id, 'bee', bee)
+
   if (!bee) throw new Error('Cannot find bee.')
 
   await db.Bee.destroy({ where: { id } });

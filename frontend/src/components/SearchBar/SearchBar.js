@@ -8,7 +8,7 @@ export default function SearchBar({ setShowModal }) {
   const [searchInput, setSearchInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const bees = Object.values(useSelector(state => state.bees));
-  console.log('bees', bees);
+  // console.log('bees', bees);
 
   useEffect(() => {
     if (!searchInput) return;
@@ -25,7 +25,7 @@ export default function SearchBar({ setShowModal }) {
 
     if (!searchInput.length) setSuggestions([]);
   }, [searchInput]);
-  console.log('suggestions', suggestions);
+  // console.log('suggestions', suggestions);
 
   return (
     <div id="search-wrapper">

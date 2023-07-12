@@ -7,6 +7,8 @@ const DeleteBee = ({ bee, setShowModal }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  console.log('DeleteBee component bee', bee)
+
   return (
     <div className="cancel-res-container">
       <div>

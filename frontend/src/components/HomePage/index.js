@@ -8,7 +8,7 @@ import LocaleBar from "./LocaleBar";
 function HomePage() {
   const dispatch = useDispatch();
   const [localeFilter, setLocaleFilter] = useState('');
-  console.log('localeFilter', localeFilter);
+  // console.log('localeFilter', localeFilter);
 
   const beesSelector = useSelector(state => state.bees);
 

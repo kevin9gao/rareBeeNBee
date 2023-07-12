@@ -127,6 +127,8 @@ export const deleteBee = (beeId) => async dispatch => {
     method: 'DELETE'
   });
 
+  console.log('deleteBee thunk res', res)
+
   if (res.ok) {
     // const bee = await res.json();
     dispatch(remove(beeId));

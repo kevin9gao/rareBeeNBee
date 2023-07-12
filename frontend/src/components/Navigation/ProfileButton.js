@@ -11,6 +11,10 @@ function ProfileButton({ user }) {
   const [showMenu, setShowMenu] = useState(false);
   const [profPic, setProfPic] = useState(user.profilePicUrl);
 
+  // console.log('history', history);
+  // const { location } = useHistory();
+  // console.log('location', location);
+
   // console.log('profilePicUrl profile button', user);
 
   const openMenu = () => {
