@@ -19,7 +19,6 @@ const BookingSidebar = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [validationErrors, setValidationErrors] = useState([]);
-  const [hidePriceCalcs, setHidePriceCalcs] = useState(false);
   const [hideErrors, setHideErrors] = useState(true);
 
   let stayLength = useRef(0);
@@ -31,10 +30,21 @@ const BookingSidebar = () => {
     totalPrice.current = ((price * stayLength.current) + hospitalityFee).toFixed(2);
     dispatch(getBees());
   }, [startDate, endDate, hospitalityFee, price, dispatch]);
+  
+  // console.log('validationErrors', validationErrors)
+  // console.log('validationErrors.length', validationErrors.length)
+  // console.log('stayLength.current', stayLength.current)
 
   useEffect(() => {
     const errors = [];
-
+    
+    if (!startDate) {
+      errors.push('Please enter a start date.');
+    }
+    if (!endDate) {
+      errors.push('Please enter a end date.');
+    }
+    
     if (new Date(startDate) < (new Date())) {
       errors.push('Start date must be in the future.');
     } else if (new Date(endDate) < new Date(startDate)) {
@@ -42,10 +52,6 @@ const BookingSidebar = () => {
     }
 
     setValidationErrors(errors);
-
-    if (!validationErrors.length) {
-      setHidePriceCalcs(false)
-    } else setHidePriceCalcs(true);
 
     dispatch(getBees());
   }, [startDate, endDate, dispatch]);
@@ -120,7 +126,7 @@ const BookingSidebar = () => {
         </div>
         <form
           onSubmit={handleSubmit}
-        >
+          >
           <div className="reservation-dates">
             <input
               id='start-date'
@@ -129,7 +135,7 @@ const BookingSidebar = () => {
               onChange={e => setStartDate(e.target.value)}
               value={startDate}
               type="date"
-            ></input>
+              ></input>
             <input
               id='end-date'
               placeholder="End Date"
@@ -137,35 +143,35 @@ const BookingSidebar = () => {
               onChange={e => setEndDate(e.target.value)}
               value={endDate}
               type="date"
-            ></input>
+              ></input>
+              {!!stayLength.current && (
+                <div
+                  className="price-totals"
+                  hidden={validationErrors.length}
+                >
+                  <div className="price-breakdown-div">
+                    <p className="subtotals">
+                      {`$${price} x ${stayLength.current} days`}
+                    </p>
+                    <p className="subtotal-by-day">
+                      {`$${(price * stayLength.current).toFixed(2)}`}
+                    </p>
+                  </div>
+                  <div className="price-breakdown-div">
+                    <p>Hospitality fees</p>
+                    <p>{`$${hospitalityFee}`}</p>
+                  </div>
+                  <div className="price-breakdown-div" id="total">
+                    <p>Total</p>
+                    <p>{`$${totalPrice.current}`}</p>
+                  </div>
+                </div>
+              )}
           </div>
           <button id='reserve-button' className="big-buttons">
             Reserve
           </button>
         </form>
-        {!!stayLength.current && (
-          <div
-            className="price-totals"
-            hidden={hidePriceCalcs}
-          >
-            <div className="price-breakdown-div">
-              <p className="subtotals">
-                {`$${price} x ${stayLength.current} days`}
-              </p>
-              <p className="subtotal-by-day">
-                {`$${(price * stayLength.current).toFixed(2)}`}
-              </p>
-            </div>
-            <div className="price-breakdown-div">
-              <p>Hospitality fees</p>
-              <p>{`$${hospitalityFee}`}</p>
-            </div>
-            <div className="price-breakdown-div" id="total">
-              <p>Total</p>
-              <p>{`$${totalPrice.current}`}</p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
