@@ -41,7 +41,7 @@ router.post('/', bookingValidations, asyncHandler(async (req, res) => {
 }))
 
 router.get('/:userId', asyncHandler(async (req, res) => {
-  console.log('got to backend users router');
+  // console.log('got to backend users router');
 
   const { userId } = req.params;
 

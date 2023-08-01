@@ -10,7 +10,7 @@ const ProfilePage = () => {
   const user = useSelector(state => state.session.user);
   const [showModal, setShowModal] = useState(false);
   const [profilePic, setProfilePic] = useState(user?.profilePicUrl);
-  console.log('profilePicUrl', user?.profilePicUrl);
+  // console.log('profilePicUrl', user?.profilePicUrl);
 
   useEffect(() => {
     if (!user?.profilePicUrl) {

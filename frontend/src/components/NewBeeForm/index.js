@@ -129,7 +129,7 @@ const NewBeeForm = () => {
       if (newBee.id) {
         // console.log('handleSubmit(if newBee runs): ', newBee)
         if (addImages) {
-          console.log('addImages payload', Array.from(addImages));
+          // console.log('addImages payload', Array.from(addImages));
           payload = {
             imageList: Array.from(addImages)
           };

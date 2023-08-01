@@ -64,8 +64,8 @@ module.exports = (sequelize, DataTypes) => {
   Bee.associate = function(models) {
     // associations can be defined here
     Bee.belongsTo(models.User, { foreignKey: 'userId' })
-    Bee.hasMany(models.Booking, { foreignKey: 'beeId' })
-    Bee.hasMany(models.Image, { foreignKey: 'beeId' })
+    Bee.hasMany(models.Booking, { foreignKey: 'beeId', onDelete: 'CASCADE', hooks: true })
+    Bee.hasMany(models.Image, { foreignKey: 'beeId', onDelete: 'CASCADE', hooks: true })
     Bee.belongsTo(models.Locale, { foreignKey: 'localeId' })
   };
   return Bee;

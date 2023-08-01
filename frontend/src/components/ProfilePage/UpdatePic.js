@@ -24,12 +24,12 @@ const UpdatePic = ({ user, setShowModal }) => {
 
   const updateFile = e => {
     const file = e.target.files[0];
-    console.log('file', file);
+    // console.log('file', file);
     if (file) {
       setChangeProfPic(file);
     }
   }
-  console.log('changeProfPic', changeProfPic);
+  // console.log('changeProfPic', changeProfPic);
 
   const handleSubmit = async e => {
     e.preventDefault();
