@@ -33,19 +33,21 @@ function Navigation({ isLoaded }) {
 
   return (
     <div className='navbar-wrapper'>
-      <div id='left-side'>
-        <a href='/' id='logo-wrapper'>
-          <img id='logo' alt='logo' src={Logo} />
-          <h2 id='title'>RareBeeNBee</h2>
-        </a>
-        <AboutPageModal />
-      </div>
-      <div id='middle'>
-        <SearchModal />
-      </div>
-      <div id='right-side'>
-        <NavLink exact className='links' to="/">Home</NavLink>
-        {isLoaded && sessionLinks}
+      <div className='navbar-wrapper-2'>
+        <div id='left-side'>
+          <a href='/' id='logo-wrapper'>
+            <img id='logo' alt='logo' src={Logo} />
+            <h2 id='title'>RareBeeNBee</h2>
+          </a>
+          <AboutPageModal />
+        </div>
+        <div id='middle'>
+          <SearchModal />
+        </div>
+        <div id='right-side'>
+          <NavLink exact className='links' to="/">Home</NavLink>
+          {isLoaded && sessionLinks}
+        </div>
       </div>
     </div>
   );
