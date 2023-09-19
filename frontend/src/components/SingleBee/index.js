@@ -40,15 +40,21 @@ const SingleBee = () => {
       <div className="upper">
         <h1>{bee.name}</h1>
         <div id="pictures-wrapper">
-          <img className="bee-pic" src={bee.imageUrl} alt='bee' />
+          <div id="big-pic-wrapper">
+            <img className="bee-pic" src={bee.imageUrl} alt='bee' />
+          </div>
           <div id="small-pics-wrapper">
-            {images && images.slice(0, 4).map(image => (
-              <img
-                className="small bee-pic"
-                src={image.imageUrl}
-                key={image.id}
-              />
-            ))}
+            <div id="pics-grid">
+              {images && images.slice(0, 4).map(image => (
+                <div className="grid">
+                  <img
+                    className="small bee-pic"
+                    src={image.imageUrl}
+                    key={image.id}
+                  />
+                </div>
+              ))}
+            </div>
             <div id="all-pics-btn-wrapper">
               <div id="all-pics-btn-wrapper-2">
                 <button

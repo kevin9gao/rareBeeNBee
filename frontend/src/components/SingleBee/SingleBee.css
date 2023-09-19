@@ -15,39 +15,84 @@ main {
 
 #pictures-wrapper {
   width: 100%;
+  height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .bee-pic {
-  width: 50%;
+  width: 100%;
+  max-height: 50vh;
   padding: 20px;
+}
+
+#big-pic-wrapper img {
+  border-radius: 7% 0 0 7%;
+}
+
+#big-pic-wrapper {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #small-pics-wrapper {
   width: 50%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
 
+#pics-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+#pics-grid div.grid {
+  width: 15vw;
+  height: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .small.bee-pic {
-  height: 50%;
+  max-width: 95%;
+  max-height: 95%;
+}
+
+#pics-grid div:nth-child(2) img {
+  border-radius: 0 10% 0 0;
+}
+
+#pics-grid div:nth-child(4) img {
+  border-radius: 0 0 10% 0;
 }
 
 #all-pics-btn-wrapper {
   display: block;
   position: relative;
-  right: 0;
-  bottom: 0;
+  right: 24px;
+  bottom: 24px;
   width: 100%;
 }
 #all-pics-btn-wrapper-2 {
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: flex-end;
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 3;
 }
 
 #all-pics-btn {
